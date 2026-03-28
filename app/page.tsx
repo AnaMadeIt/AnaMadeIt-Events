@@ -53,6 +53,18 @@ export default function Home() {
     },
   ];
 
+  const proposalGalleryImages = [
+    { src: '/proposal-gallery/IMG_8695.JPG', alt: 'Heart-shaped rose proposal installation' },
+    { src: '/proposal-gallery/IMG_8696.JPG', alt: 'Red rose proposal floral detail' },
+    { src: '/proposal-gallery/IMG_8697.JPG', alt: 'Proposal rose arrangements on rooftop' },
+    { src: '/proposal-gallery/IMG_8698.JPG', alt: 'White and red floral arrangement for proposal' },
+    { src: '/proposal-gallery/IMG_8699.JPG', alt: 'Couple in front of proposal installation' },
+    { src: '/proposal-gallery/IMG_8700.JPG', alt: 'Proposal setup walkway view' },
+    { src: '/proposal-gallery/IMG_8701.JPG', alt: 'Proposal sign with lights at night' },
+    { src: '/proposal-gallery/IMG_8702.JPG', alt: 'Couple proposal kiss photo' },
+    { src: '/proposal-gallery/IMG_8703.JPG', alt: 'Guests celebrating proposal event' },
+  ];
+
   const galleryImages = [
     {
       src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80",
@@ -168,25 +180,176 @@ export default function Home() {
           }}
         >
           {packages.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
+          <section
+            key={section.id}
+            id={section.id}
+            style={{
+              background: 'rgba(255,255,255,0.86)',
+              border: '1px solid rgba(214,150,173,0.22)',
+              borderRadius: '28px',
+              padding: '34px 28px',
+              marginBottom: '24px',
+              boxShadow: '0 18px 50px rgba(160, 114, 135, 0.1)',
+              backdropFilter: 'blur(4px)',
+            }}
+          >
+            <div
               style={{
-                textDecoration: 'none',
-                background: 'rgba(255,255,255,0.92)',
-                color: '#c06189',
-                padding: '12px 18px',
-                borderRadius: '999px',
-                border: '1px solid rgba(214,150,173,0.25)',
-                fontFamily: 'Arial, sans-serif',
-                fontSize: '14px',
-                fontWeight: 700,
-                boxShadow: '0 10px 25px rgba(160, 114, 135, 0.08)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '20px',
+                flexWrap: 'wrap',
+                marginBottom: '18px',
               }}
             >
-              {section.title}
-            </a>
-          ))}
+              <div>
+                <p
+                  style={{
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em',
+                    fontSize: '11px',
+                    color: '#b57d93',
+                    margin: '0 0 10px',
+                    fontFamily: 'Arial, sans-serif',
+                    fontWeight: 700,
+                  }}
+                >
+                  Signature Service
+                </p>
+                <h2
+                  style={{
+                    color: '#c06189',
+                    fontSize: 'clamp(28px, 4vw, 40px)',
+                    margin: '0 0 10px',
+                  }}
+                >
+                  {section.title}
+                </h2>
+                <p
+                  style={{
+                    margin: 0,
+                    fontFamily: 'Arial, sans-serif',
+                    fontSize: '16px',
+                    lineHeight: 1.7,
+                    color: '#715c64',
+                    maxWidth: '720px',
+                  }}
+                >
+                  {section.subtitle}
+                </p>
+              </div>
+              <div
+                style={{
+                  background: '#fff6f9',
+                  color: '#c06189',
+                  borderRadius: '999px',
+                  padding: '10px 16px',
+                  fontFamily: 'Arial, sans-serif',
+                  fontWeight: 700,
+                  border: '1px solid rgba(214,150,173,0.22)',
+                }}
+              >
+                Custom quote available
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                gap: '16px',
+              }}
+            >
+              {section.items.map((item) => (
+                <div
+                  key={item}
+                  style={{
+                    background: 'linear-gradient(180deg, #fff8fb 0%, #fff2f7 100%)',
+                    padding: '20px',
+                    borderRadius: '20px',
+                    border: '1px solid rgba(214,150,173,0.18)',
+                    boxShadow: '0 10px 24px rgba(160, 114, 135, 0.06)',
+                    fontFamily: 'Arial, sans-serif',
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            {section.id === 'proposals' && (
+              <div style={{ marginTop: '28px' }}>
+                <p
+                  style={{
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.2em',
+                    fontSize: '11px',
+                    color: '#b57d93',
+                    margin: '0 0 10px',
+                    fontFamily: 'Arial, sans-serif',
+                    fontWeight: 700,
+                  }}
+                >
+                  Proposal Portfolio
+                </p>
+                <h3
+                  style={{
+                    color: '#c06189',
+                    fontSize: 'clamp(24px, 3vw, 32px)',
+                    margin: '0 0 10px',
+                  }}
+                >
+                  Proposal Gallery
+                </h3>
+                <p
+                  style={{
+                    margin: '0 0 20px',
+                    fontFamily: 'Arial, sans-serif',
+                    fontSize: '16px',
+                    lineHeight: 1.7,
+                    color: '#715c64',
+                    maxWidth: '760px',
+                  }}
+                >
+                  A featured look at one of AnaMadeIt Events’ romantic rooftop proposal experiences.
+                </p>
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                    gap: '16px',
+                  }}
+                >
+                  {proposalGalleryImages.map((image) => (
+                    <div
+                      key={image.src}
+                      style={{
+                        overflow: 'hidden',
+                        borderRadius: '22px',
+                        background: '#f6e5ec',
+                        boxShadow: '0 14px 30px rgba(160, 114, 135, 0.1)',
+                        border: '1px solid rgba(214,150,173,0.18)',
+                      }}
+                    >
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        style={{
+                          width: '100%',
+                          height: '300px',
+                          objectFit: 'cover',
+                          display: 'block',
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+        ))}
           <a
             href="#gallery"
             style={{
@@ -567,8 +730,8 @@ export default function Home() {
           >
             My name is Ana Breen, and I have been doing events for over 20 years. My promise to you
             as an event planner & coordinator is that I am able to do events from A to Z. You name it,
-            and I will create it! My mission is to make your vision become a reality, and for you as
-            the customer to come away with a memory that lasts a lifetime. Because today existed!
+            and I will create it! It is my mission to make your vision become a reality, and for you as
+            the customer to come away with a memory that lasts a lifetime.
           </p>
         </footer>
       </section>
