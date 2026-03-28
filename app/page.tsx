@@ -1,65 +1,155 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+    <div style={{
+      fontFamily: "Arial, sans-serif",
+      background: "#fde7ef",
+      color: "#444",
+      minHeight: "100vh"
+    }}>
+
+      {/* Header */}
+      <div style={{
+        textAlign: "center",
+        padding: "60px 20px",
+        background: "rgba(255,255,255,0.9)"
+      }}>
+        <h1 style={{ color: "#d63384", fontSize: "42px" }}>
+          AnaMadeIt Events
+        </h1>
+        <p style={{ fontStyle: "italic", marginTop: "10px" }}>
+          Treat Yourself! Because Today Happened
+        </p>
+      </div>
+
+      {/* Navigation */}
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: "15px",
+        flexWrap: "wrap",
+        margin: "20px"
+      }}>
+        {["weddings", "proposals", "birthdays", "floral", "custom"].map((item) => (
+          <a key={item} href={`#${item}`} style={{
+            background: "white",
+            padding: "10px 16px",
+            borderRadius: "20px",
+            textDecoration: "none",
+            color: "#d63384",
+            fontWeight: "bold"
+          }}>
+            {item.charAt(0).toUpperCase() + item.slice(1)}
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        ))}
+      </div>
+
+      {/* Sections */}
+      {[
+        {
+          id: "weddings",
+          title: "Wedding Packages",
+          items: [
+            "Basic Package - Ceremony setup & coordination",
+            "Premium Package - Full planning + décor + florals"
+          ]
+        },
+        {
+          id: "proposals",
+          title: "Proposal Packages",
+          items: [
+            "Romantic Setup - Candles, flowers, décor",
+            "Luxury Proposal - Full custom experience"
+          ]
+        },
+        {
+          id: "birthdays",
+          title: "Birthday Packages",
+          items: [
+            "Kids Party Package",
+            "Luxury Birthday Experience"
+          ]
+        },
+        {
+          id: "floral",
+          title: "Floral Arrangements",
+          items: [
+            "Custom Hydrangea Bouquets",
+            "Event Floral Design"
+          ]
+        }
+      ].map(section => (
+        <div key={section.id} id={section.id} style={{
+          maxWidth: "900px",
+          margin: "30px auto",
+          padding: "30px",
+          background: "rgba(255,255,255,0.9)",
+          borderRadius: "16px"
+        }}>
+          <h2 style={{ color: "#d63384" }}>{section.title}</h2>
+          {section.items.map((item, i) => (
+            <div key={i} style={{
+              background: "#fff0f5",
+              padding: "15px",
+              borderRadius: "10px",
+              marginTop: "10px"
+            }}>
+              {item}
+            </div>
+          ))}
         </div>
-      </main>
+      ))}
+
+      {/* Custom Event Form */}
+      <div id="custom" style={{
+        maxWidth: "900px",
+        margin: "30px auto",
+        padding: "30px",
+        background: "rgba(255,255,255,0.9)",
+        borderRadius: "16px"
+      }}>
+        <h2 style={{ color: "#d63384" }}>Create Your Own Event</h2>
+
+        <input placeholder="Your Name" style={inputStyle} />
+        <input placeholder="Your Email" style={inputStyle} />
+        <textarea placeholder="Describe your event" style={inputStyle} />
+
+        <button style={{
+          background: "#d63384",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "8px",
+          marginTop: "10px",
+          cursor: "pointer"
+        }}>
+          Submit
+        </button>
+      </div>
+
+      {/* About Section */}
+      <div style={{
+        textAlign: "center",
+        padding: "40px",
+        background: "rgba(255,255,255,0.9)"
+      }}>
+        <h3 style={{ color: "#d63384" }}>About Me</h3>
+        <p style={{ maxWidth: "700px", margin: "auto" }}>
+          My name is Ana Breen, and I have been doing events for over 20 years.
+          My promise to you as an event planner & coordinator is that I am able
+          to do events from A to Z. You name it, and I will create it! It is my
+          mission to make your vision become a reality, and for you as the
+          customer to come away with a memory that lasts a lifetime.
+        </p>
+      </div>
+
     </div>
   );
 }
+
+const inputStyle = {
+  width: "100%",
+  padding: "10px",
+  marginTop: "10px",
+  borderRadius: "8px",
+  border: "1px solid #ccc"
+};
