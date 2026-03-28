@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("weddings");
+  const [proposalSlide, setProposalSlide] = useState(0);
+  const [proposalFadeIn, setProposalFadeIn] = useState(true);
 
   const packages = [
     {
@@ -99,6 +101,32 @@ export default function Home() {
   ];
 
   const activeSection = packages.find((section) => section.id === activeTab) || packages[0];
+
+  useEffect(() => {
+    if (activeTab !== "proposals") return;
+
+    setProposalFadeIn(true);
+
+    const fadeTimer = setInterval(() => {
+      setProposalFadeIn(false);
+
+      const switchTimer = setTimeout(() => {
+        setProposalSlide((current) => (current + 1) % proposalGalleryImages.length);
+        setProposalFadeIn(true);
+      }, 450);
+
+      return () => clearTimeout(switchTimer);
+    }, 3200);
+
+    return () => clearInterval(fadeTimer);
+  }, [activeTab, proposalGalleryImages.length]);
+
+  useEffect(() => {
+    if (activeTab !== "proposals") {
+      setProposalSlide(0);
+      setProposalFadeIn(true);
+    }
+  }, [activeTab]);
 
   return (
     <main
@@ -236,7 +264,10 @@ export default function Home() {
                 style={{
                   padding: "12px 18px",
                   borderRadius: "999px",
-                  border: activeTab === section.id ? "1px solid #cc6f95" : "1px solid rgba(214,150,173,0.25)",
+                  border:
+                    activeTab === section.id
+                      ? "1px solid #cc6f95"
+                      : "1px solid rgba(214,150,173,0.25)",
                   background: activeTab === section.id ? "#cc6f95" : "rgba(255,255,255,0.92)",
                   color: activeTab === section.id ? "white" : "#c06189",
                   fontFamily: "Arial, sans-serif",
@@ -376,84 +407,79 @@ export default function Home() {
 
               <div
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "1.5fr 1fr",
-                  gap: "16px",
-                  marginBottom: "16px",
+                  position: "relative",
+                  overflow: "hidden",
+                  borderRadius: "28px",
+                  background: "#f6e5ec",
+                  boxShadow: "0 18px 36px rgba(160, 114, 135, 0.12)",
+                  border: "1px solid rgba(214,150,173,0.18)",
+                  marginBottom: "20px",
                 }}
               >
+                <img
+                  src={proposalGalleryImages[proposalSlide].src}
+                  alt={proposalGalleryImages[proposalSlide].alt}
+                  style={{
+                    width: "100%",
+                    height: "680px",
+                    objectFit: "cover",
+                    display: "block",
+                    opacity: proposalFadeIn ? 1 : 0,
+                    transition: "opacity 0.45s ease-in-out",
+                  }}
+                />
                 <div
                   style={{
-                    overflow: "hidden",
-                    borderRadius: "24px",
-                    background: "#f6e5ec",
-                    boxShadow: "0 18px 36px rgba(160, 114, 135, 0.12)",
-                    border: "1px solid rgba(214,150,173,0.18)",
-                    minHeight: "100%",
+                    position: "absolute",
+                    inset: 0,
+                    background:
+                      "linear-gradient(to top, rgba(38,26,31,0.45), rgba(38,26,31,0.05) 45%, rgba(38,26,31,0))",
+                    pointerEvents: "none",
                   }}
-                >
-                  <img
-                    src={proposalGalleryImages[0].src}
-                    alt={proposalGalleryImages[0].alt}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      minHeight: "620px",
-                      objectFit: "cover",
-                      display: "block",
-                    }}
-                  />
-                </div>
-
+                />
                 <div
                   style={{
-                    display: "grid",
-                    gridTemplateRows: "1fr 1fr",
-                    gap: "16px",
+                    position: "absolute",
+                    left: "24px",
+                    bottom: "22px",
+                    right: "24px",
+                    color: "white",
+                    fontFamily: "Arial, sans-serif",
+                    fontWeight: 700,
+                    fontSize: "16px",
+                    lineHeight: 1.5,
+                    textShadow: "0 2px 12px rgba(0,0,0,0.35)",
                   }}
                 >
-                  {proposalGalleryImages.slice(1, 3).map((image) => (
-                    <div
-                      key={image.src}
-                      style={{
-                        overflow: "hidden",
-                        borderRadius: "24px",
-                        background: "#f6e5ec",
-                        boxShadow: "0 14px 30px rgba(160, 114, 135, 0.1)",
-                        border: "1px solid rgba(214,150,173,0.18)",
-                      }}
-                    >
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        style={{
-                          width: "100%",
-                          height: "302px",
-                          objectFit: "cover",
-                          display: "block",
-                        }}
-                      />
-                    </div>
-                  ))}
+                  {proposalGalleryImages[proposalSlide].alt}
                 </div>
               </div>
 
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                  gap: "16px",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+                  gap: "12px",
                 }}
               >
-                {proposalGalleryImages.slice(3).map((image) => (
-                  <div
+                {proposalGalleryImages.map((image, index) => (
+                  <button
                     key={image.src}
+                    onClick={() => {
+                      setProposalSlide(index);
+                      setProposalFadeIn(true);
+                    }}
                     style={{
+                      padding: 0,
+                      borderRadius: "18px",
                       overflow: "hidden",
-                      borderRadius: "22px",
+                      border:
+                        proposalSlide === index
+                          ? "2px solid #cc6f95"
+                          : "1px solid rgba(214,150,173,0.18)",
                       background: "#f6e5ec",
-                      boxShadow: "0 14px 30px rgba(160, 114, 135, 0.1)",
-                      border: "1px solid rgba(214,150,173,0.18)",
+                      boxShadow: "0 10px 24px rgba(160, 114, 135, 0.08)",
+                      cursor: "pointer",
                     }}
                   >
                     <img
@@ -461,12 +487,12 @@ export default function Home() {
                       alt={image.alt}
                       style={{
                         width: "100%",
-                        height: "280px",
+                        height: "120px",
                         objectFit: "cover",
                         display: "block",
                       }}
                     />
-                  </div>
+                  </button>
                 ))}
               </div>
             </div>
@@ -612,7 +638,11 @@ export default function Home() {
             <input type="hidden" name="_subject" value="New AnaMadeIt Events Inquiry" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_next" value="https://ana-made-it-events-kxwe.vercel.app" />
+            <input
+              type="hidden"
+              name="_next"
+              value="https://ana-made-it-events-kxwe.vercel.app"
+            />
 
             <input name="name" placeholder="Your Name" required style={inputStyle} />
             <input name="email" type="email" placeholder="Your Email" required style={inputStyle} />
@@ -670,7 +700,9 @@ export default function Home() {
           >
             About Ana
           </p>
-          <h3 style={{ color: "#c06189", fontSize: "32px", margin: "0 0 16px" }}>A Personal Promise</h3>
+          <h3 style={{ color: "#c06189", fontSize: "32px", margin: "0 0 16px" }}>
+            A Personal Promise
+          </h3>
           <p
             style={{
               maxWidth: "850px",
@@ -684,7 +716,7 @@ export default function Home() {
             My name is Ana Breen, and I have been doing events for over 20 years. My promise to you
             as an event planner & coordinator is that I am able to do events from A to Z. You name it,
             and I will create it! It is my mission to make your vision become a reality, and for you as
-            the customer to come away with a memory that lasts a lifetime. Because today happened!
+            the customer to come away with a memory that lasts a lifetime.
           </p>
         </footer>
       </section>
