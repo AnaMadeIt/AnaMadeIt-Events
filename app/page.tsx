@@ -206,19 +206,11 @@ export default function AnaMadeItEventsPage() {
       <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-[#f8f5f1]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-5 px-6 py-6 lg:px-10">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-3 text-stone-400">
-              <Sparkles className="h-4 w-4" />
-              <span className="text-[10px] uppercase tracking-[0.4em]">Luxury celebrations</span>
-              <Sparkles className="h-4 w-4" />
-            </div>
-            <h1
-              className={`${scriptFont.className} floral-title mt-3 text-center text-6xl leading-none text-stone-900 md:text-8xl lg:text-[7rem]`}
-            >
-              🌸 AnaMadeIt 🌸
-            </h1>
-            <p className={`${serifFont.className} mt-3 text-lg tracking-[0.35em] text-stone-500 md:text-xl`}>
-              EVENTS
-            </p>
+            <img
+              src="/proposal-gallery/logo.png"
+              alt="AnaMadeIt Events Logo"
+              className="mx-auto w-[320px] md:w-[420px] lg:w-[520px]"
+            />
           </div>
 
           <nav className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
@@ -497,6 +489,22 @@ export default function AnaMadeItEventsPage() {
                 </p>
               </a>
             </div>
+          </div>
+        </section>
+
+        <section id="aboutme" className="px-6 py-24 lg:px-10 bg-[#fdfaf6]">
+          <div className="mx-auto max-w-4xl text-center">
+            <img
+              src="/proposal-gallery/aboutme.jpg"
+              alt="Ana Breen"
+              className="mx-auto mb-8 w-[260px] md:w-[320px] rounded-[2rem] shadow-xl object-cover"
+            />
+            <h2 className={`${serifFont.className} text-4xl md:text-5xl mb-6`}>
+              About Me
+            </h2>
+            <p className="text-lg leading-8 text-stone-600">
+              My name is Ana Breen, and I have been doing events for over 20 years. If there is one thing I know, it is that everybody wants to create special memories for the moments that matter most. My mission is to make sure that you can come to me with any idea from A to Z, and I will take it from there! Everybody deserves to have the event of their dreams, and to create memories that last a lifetime. Because today existed!
+            </p>
           </div>
         </section>
       </main>
