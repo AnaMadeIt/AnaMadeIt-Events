@@ -1,8 +1,19 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import { Great_Vibes, Cormorant_Garamond } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, Mail, Phone, ChevronDown } from "lucide-react";
+import { Instagram, Mail, Phone, ChevronDown, Sparkles } from "lucide-react";
+
+const scriptFont = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const serifFont = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 const proposalImages = [
   "/proposal-gallery/IMG_8695.JPG",
@@ -21,11 +32,18 @@ const weddingImages = [
   "/proposal-gallery/IMG_9374.JPG",
 ];
 
+const birthdayImages = [
+  "/proposal-gallery/IMG_8698.JPG",
+  "/proposal-gallery/IMG_8699.JPG",
+  "/proposal-gallery/IMG_8700.JPG",
+];
+
 const sections = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
   { id: "proposals", label: "Proposals" },
   { id: "weddings", label: "Weddings" },
+  { id: "birthdays", label: "Birthdays" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -93,12 +111,48 @@ function SectionHeader({
       <p className="mb-3 text-xs uppercase tracking-[0.4em] text-stone-500">
         {eyebrow}
       </p>
-      <h2 className="mb-4 font-serif text-4xl tracking-wide text-stone-900 md:text-5xl">
+      <h2 className={`${serifFont.className} mb-4 text-4xl tracking-wide text-stone-900 md:text-5xl`}>
         {title}
       </h2>
       <p className="text-base leading-7 text-stone-600 md:text-lg">
         {description}
       </p>
+    </div>
+  );
+}
+
+function ScrollMagic({ activeSection }: { activeSection: string }) {
+  const sectionMap: Record<string, { icon: string; label: string }> = {
+    weddings: { icon: "👰", label: "Bridal magic" },
+    proposals: { icon: "💍", label: "Proposal magic" },
+    birthdays: { icon: "🎂", label: "Birthday magic" },
+    home: { icon: "✨", label: "Celebration magic" },
+    about: { icon: "✨", label: "Celebration magic" },
+    contact: { icon: "💌", label: "Contact magic" },
+  };
+
+  const current = sectionMap[activeSection] ?? sectionMap.home;
+
+  return (
+    <div className="pointer-events-none fixed right-4 top-24 z-40 hidden md:block lg:right-8">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeSection}
+          initial={{ opacity: 0, y: 30, scale: 0.8, rotate: -8 }}
+          animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+          exit={{ opacity: 0, y: -20, scale: 0.8, rotate: 8 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="flex h-28 w-28 items-center justify-center rounded-full border border-white/50 bg-white/60 text-5xl shadow-2xl backdrop-blur-xl"
+          aria-label={current.label}
+        >
+          <motion.span
+            animate={{ y: [0, -6, 0], rotate: [0, 4, -4, 0] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+          >
+            {current.icon}
+          </motion.span>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
@@ -137,25 +191,33 @@ export default function AnaMadeItEventsPage() {
 
   return (
     <div className="min-h-screen bg-[#f8f5f1] text-stone-900">
+      <ScrollMagic activeSection={activeSection} />
+
       <style>{`
         html {
           scroll-behavior: smooth;
         }
 
-        .luxury-title {
-          font-family: Georgia, 'Times New Roman', serif;
-          letter-spacing: 0.18em;
+        .floral-title {
+          text-shadow: 0 2px 14px rgba(80, 67, 52, 0.08);
         }
       `}</style>
 
       <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-[#f8f5f1]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-5 px-6 py-6 lg:px-10">
           <div className="text-center">
-            <p className="luxury-title text-2xl uppercase text-stone-900 md:text-4xl">
-              Ana Made It Events
-            </p>
-            <p className="mt-2 text-xs uppercase tracking-[0.35em] text-stone-500 md:text-sm">
-              Elegant Event Planning & Floral Styling
+            <div className="flex items-center justify-center gap-3 text-stone-400">
+              <Sparkles className="h-4 w-4" />
+              <span className="text-[10px] uppercase tracking-[0.4em]">Luxury celebrations</span>
+              <Sparkles className="h-4 w-4" />
+            </div>
+            <h1
+              className={`${scriptFont.className} floral-title mt-3 text-center text-6xl leading-none text-stone-900 md:text-8xl lg:text-[7rem]`}
+            >
+              🌸 AnaMadeIt 🌸
+            </h1>
+            <p className={`${serifFont.className} mt-3 text-lg tracking-[0.35em] text-stone-500 md:text-xl`}>
+              EVENTS
             </p>
           </div>
 
@@ -189,15 +251,15 @@ export default function AnaMadeItEventsPage() {
           <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="text-center lg:text-left">
               <p className="mb-4 text-xs uppercase tracking-[0.45em] text-stone-500">
-                Ana Made It Events
+                AnaMadeIt Events
               </p>
-              <h1 className="font-serif text-5xl leading-tight text-stone-900 md:text-7xl">
+              <h2 className={`${serifFont.className} text-5xl leading-tight text-stone-900 md:text-7xl`}>
                 Refined celebrations with a romantic, elevated feel.
-              </h1>
+              </h2>
               <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600 md:text-lg">
-                From unforgettable proposals to beautifully curated weddings,
-                Ana Made It Events creates warm, intentional celebrations that
-                feel timeless, personal, and effortlessly elegant.
+                From unforgettable proposals to beautifully curated weddings and birthdays,
+                AnaMadeIt Events creates warm, intentional celebrations that feel timeless,
+                personal, and effortlessly elegant.
               </p>
 
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
@@ -242,7 +304,7 @@ export default function AnaMadeItEventsPage() {
             <SectionHeader
               eyebrow="About"
               title="A polished, personal planning experience"
-              description="Ana Made It Events blends thoughtful coordination, beautiful styling, and romantic details to create celebrations that feel elevated from the very first impression to the final photo."
+              description="AnaMadeIt Events blends thoughtful coordination, beautiful styling, and romantic details to create celebrations that feel elevated from the very first impression to the final photo."
             />
 
             <div className="grid gap-6 md:grid-cols-3">
@@ -257,20 +319,24 @@ export default function AnaMadeItEventsPage() {
                 },
                 {
                   title: "Meaningful Moments",
-                  text: "Every proposal and wedding is tailored so the final experience feels deeply personal.",
+                  text: "Every proposal, wedding, and birthday is tailored so the final experience feels deeply personal.",
                 },
               ].map((item) => (
-                <div
+                <motion.div
                   key={item.title}
+                  initial={{ opacity: 0, y: 25 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.6 }}
                   className="rounded-[1.75rem] border border-stone-200 bg-[#faf8f4] p-7 shadow-sm"
                 >
-                  <h3 className="font-serif text-2xl text-stone-900">
+                  <h3 className={`${serifFont.className} text-2xl text-stone-900`}>
                     {item.title}
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-stone-600 md:text-base">
                     {item.text}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -284,19 +350,29 @@ export default function AnaMadeItEventsPage() {
               description="An immersive proposal gallery with smooth scrolling flow and a fading slideshow presentation style."
             />
             <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
-              <div>
-                <h3 className="font-serif text-3xl text-stone-900 md:text-4xl">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7 }}
+              >
+                <h3 className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}>
                   Thoughtfully styled proposal moments
                 </h3>
                 <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
                   These images are loading directly from the
-                  {" "}
-                  <span className="font-semibold">public/proposal-gallery</span>
-                  {" "}
+                  <span className="font-semibold"> public/proposal-gallery </span>
                   folder.
                 </p>
-              </div>
-              <Slideshow images={proposalImages} altPrefix="Proposal" />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7 }}
+              >
+                <Slideshow images={proposalImages} altPrefix="Proposal" />
+              </motion.div>
             </div>
           </div>
         </section>
@@ -304,21 +380,66 @@ export default function AnaMadeItEventsPage() {
         <section id="weddings" className="bg-white/60 px-6 py-20 lg:px-10">
           <div className="mx-auto max-w-7xl">
             <SectionHeader
-              eyebrow="New Gallery"
+              eyebrow="Featured Gallery"
               title="Weddings"
               description="This section matches the clickable tab navigation, smooth scroll layout, and fading slideshow effect from the Proposals area."
             />
             <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-              <Slideshow images={weddingImages} altPrefix="Wedding" />
-              <div>
-                <h3 className="font-serif text-3xl text-stone-900 md:text-4xl">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7 }}
+              >
+                <Slideshow images={weddingImages} altPrefix="Wedding" />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7 }}
+              >
+                <h3 className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}>
                   Romantic wedding imagery with an editorial feel
                 </h3>
                 <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
-                  This wedding slideshow uses your three wedding images from the
-                  same gallery folder.
+                  This wedding slideshow uses your three wedding images from the same gallery folder.
                 </p>
-              </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <section id="birthdays" className="px-6 py-20 lg:px-10">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeader
+              eyebrow="Celebrations"
+              title="Birthdays"
+              description="A birthday section has been added so your site can grow into more event types with the same polished, animated flow."
+            />
+            <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7 }}
+              >
+                <h3 className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}>
+                  Beautiful birthday celebrations, styled with the same luxury feel
+                </h3>
+                <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
+                  Right now this section uses sample gallery images so the design is complete.
+                  You can replace them later with actual birthday photos by updating the birthdayImages array.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7 }}
+              >
+                <Slideshow images={birthdayImages} altPrefix="Birthday" />
+              </motion.div>
             </div>
           </div>
         </section>
@@ -329,7 +450,7 @@ export default function AnaMadeItEventsPage() {
               <p className="text-xs uppercase tracking-[0.4em] text-stone-300">
                 Contact
               </p>
-              <h2 className="mt-4 font-serif text-4xl md:text-5xl">
+              <h2 className={`${serifFont.className} mt-4 text-4xl md:text-5xl`}>
                 Let’s create something unforgettable
               </h2>
               <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-stone-300 md:text-lg">
