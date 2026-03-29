@@ -1,261 +1,328 @@
-"use client";
-
 import React, { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Instagram, Mail, Phone, ChevronDown } from "lucide-react";
 
-export default function Page() {
-  const navItems = [
-    { label: "Home", id: "home" },
-    { label: "About Me", id: "about" },
-    { label: "Services", id: "services" },
-    { label: "Proposals", id: "proposals" },
-    { label: "Contact", id: "contact" },
-  ];
+const proposalImages = [
+  "/proposal-gallery/proposal1.jpg",
+  "/proposal-gallery/proposal2.jpg",
+  "/proposal-gallery/proposal3.jpg",
+  "/proposal-gallery/proposal4.jpg",
+  "/proposal-gallery/proposal5.jpg",
+  "/proposal-gallery/proposal6.jpg",
+];
 
-  const [currentProposalIndex, setCurrentProposalIndex] = useState(0);
-  const [fade, setFade] = useState(true);
+const weddingImages = [
+  "/proposal-gallery/IMG_9373.JPG",
+  "/proposal-gallery/IMG_9372.JPG",
+  "/proposal-gallery/IMG_9374.JPG",
+];
 
-  const proposalImages = useMemo(
-    () => [
-      "/proposal-gallery/proposal1.jpg",
-      "/proposal-gallery/proposal2.jpg",
-      "/proposal-gallery/proposal3.jpg",
-      "/proposal-gallery/proposal4.jpg",
-      "/proposal-gallery/proposal5.jpg",
-    ],
+const sections = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "proposals", label: "Proposals" },
+  { id: "weddings", label: "Weddings" },
+  { id: "contact", label: "Contact" },
+];
+
+function Slideshow({ images, altPrefix }: { images: string[]; altPrefix: string }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!images.length) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <div className="relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-stone-100 shadow-2xl md:h-[560px]">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={images[index]}
+          src={images[index]}
+          alt={`${altPrefix} ${index + 1}`}
+          className="absolute inset-0 h-full w-full object-cover"
+          initial={{ opacity: 0, scale: 1.03 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.985 }}
+          transition={{ duration: 0.9, ease: "easeInOut" }}
+        />
+      </AnimatePresence>
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
+
+      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/70 px-3 py-2 backdrop-blur">
+        {images.map((_, dotIndex) => (
+          <button
+            key={dotIndex}
+            onClick={() => setIndex(dotIndex)}
+            aria-label={`Go to ${altPrefix} image ${dotIndex + 1}`}
+            className={`h-2.5 w-2.5 rounded-full transition-all ${
+              dotIndex === index ? "w-6 bg-stone-900" : "bg-stone-400"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SectionHeader({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
+  return (
+    <div className="mx-auto mb-10 max-w-3xl text-center md:mb-14">
+      <p className="mb-3 text-xs uppercase tracking-[0.4em] text-stone-500">{eyebrow}</p>
+      <h2 className="mb-4 font-serif text-4xl tracking-wide text-stone-900 md:text-5xl">{title}</h2>
+      <p className="text-base leading-7 text-stone-600 md:text-lg">{description}</p>
+    </div>
+  );
+}
+
+export default function AnaMadeItEventsPage() {
+  const [activeSection, setActiveSection] = useState("home");
+
+  const observerOptions = useMemo(
+    () => ({ root: null, rootMargin: "-35% 0px -45% 0px", threshold: 0 }),
     []
   );
 
   useEffect(() => {
-    if (proposalImages.length === 0) return;
+    const ids = sections.map((section) => section.id);
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => Boolean(el));
 
-    const interval = setInterval(() => {
-      setFade(false);
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.find((entry) => entry.isIntersecting);
+      if (visible?.target?.id) {
+        setActiveSection(visible.target.id);
+      }
+    }, observerOptions);
 
-      setTimeout(() => {
-        setCurrentProposalIndex((prev) => (prev + 1) % proposalImages.length);
-        setFade(true);
-      }, 500);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [proposalImages]);
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, [observerOptions]);
 
   const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
   return (
-    <div style={styles.page}>
-      <header style={styles.header}>
-        <div style={styles.headerTop}>
-          <div>
-            <p style={styles.eyebrow}>Luxury Event Planning & Floral Styling</p>
-            <h1 style={styles.logo}>Ana Made It Events</h1>
-            <p style={styles.tagline}>
-              Thoughtful celebrations, beautiful details, unforgettable moments.
+    <div className="min-h-screen bg-[#f8f5f1] text-stone-900">
+      <style>{`
+        html {
+          scroll-behavior: smooth;
+        }
+
+        .luxury-title {
+          font-family: Georgia, 'Times New Roman', serif;
+          letter-spacing: 0.18em;
+        }
+      `}</style>
+
+      <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-[#f8f5f1]/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-5 px-6 py-6 lg:px-10">
+          <div className="text-center">
+            <p className="luxury-title text-2xl uppercase text-stone-900 md:text-4xl">
+              Ana Made It Events
+            </p>
+            <p className="mt-2 text-xs uppercase tracking-[0.35em] text-stone-500 md:text-sm">
+              Elegant Event Planning & Floral Styling
             </p>
           </div>
 
-          <div style={styles.topRightContact}>
-            <a
-              href="https://instagram.com/anamadeit_events"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Visit Ana Made It Events on Instagram"
-              style={styles.instagramLink}
-            >
-              <InstagramIcon />
-            </a>
-
-            <a href="tel:6167062828" style={styles.headerContactLink}>
-              616-706-2828
-            </a>
-
-            <a
-              href="mailto:anabelle1030@gmail.com"
-              style={styles.headerContactLink}
-            >
-              anabelle1030@gmail.com
-            </a>
-          </div>
+          <nav className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
+            {sections.map((section) => {
+              const active = activeSection === section.id;
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => scrollToSection(section.id)}
+                  className={`rounded-full border px-5 py-2.5 text-sm tracking-[0.18em] uppercase transition-all ${
+                    active
+                      ? "border-stone-900 bg-stone-900 text-white shadow-lg"
+                      : "border-stone-300 bg-white/80 text-stone-700 hover:border-stone-500 hover:bg-white"
+                  }`}
+                >
+                  {section.label}
+                </button>
+              );
+            })}
+          </nav>
         </div>
-
-        <nav style={styles.nav}>
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              style={styles.navButton}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
       </header>
 
-      <main style={styles.main}>
-        <section id="home" style={styles.section}>
-          <div style={styles.heroCard}>
-            <p style={styles.smallLabel}>CURATED EVENT EXPERIENCES</p>
-            <h2 style={styles.heroTitle}>
-              Elegant celebrations for weddings, proposals, birthdays, floral
-              arrangements, and custom events designed with intention, beauty,
-              and timeless detail.
-            </h2>
+      <main>
+        <section id="home" className="relative overflow-hidden px-6 pb-20 pt-16 lg:px-10 lg:pt-24">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(120,113,108,0.10),_transparent_42%)]" />
+          <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="text-center lg:text-left">
+              <p className="mb-4 text-xs uppercase tracking-[0.45em] text-stone-500">Ana Made It Events</p>
+              <h1 className="font-serif text-5xl leading-tight text-stone-900 md:text-7xl">
+                Refined celebrations with a romantic, elevated feel.
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600 md:text-lg">
+                From unforgettable proposals to beautifully curated weddings, Ana Made It Events creates warm,
+                intentional celebrations that feel timeless, personal, and effortlessly elegant.
+              </p>
 
-            <div style={styles.featureGrid}>
-              <div style={styles.featurePill}>Over 20 years of event experience</div>
-              <div style={styles.featurePill}>Luxury floral and design styling</div>
-              <div style={styles.featurePill}>Personalized planning from A to Z</div>
-              <div style={styles.featurePill}>Seamless celebrations with timeless detail</div>
+              <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+                <button
+                  onClick={() => scrollToSection("proposals")}
+                  className="rounded-full bg-stone-900 px-7 py-3 text-sm uppercase tracking-[0.22em] text-white transition hover:translate-y-[-1px]"
+                >
+                  View Proposals
+                </button>
+                <button
+                  onClick={() => scrollToSection("weddings")}
+                  className="rounded-full border border-stone-400 px-7 py-3 text-sm uppercase tracking-[0.22em] text-stone-800 transition hover:border-stone-800"
+                >
+                  View Weddings
+                </button>
+              </div>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: "easeOut" }}
+              className="relative"
+            >
+              <Slideshow images={weddingImages} altPrefix="Wedding feature" />
+            </motion.div>
+          </div>
+
+          <div className="mt-14 flex justify-center">
+            <button
+              onClick={() => scrollToSection("about")}
+              className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-stone-500 transition hover:text-stone-900"
+            >
+              Scroll
+              <ChevronDown className="h-4 w-4" />
+            </button>
           </div>
         </section>
 
-        <section id="about" style={styles.section}>
-          <div style={styles.contentCard}>
-            <p style={styles.smallLabel}>ABOUT ME</p>
-            <h2 style={styles.heading}>Designed with heart and elevated taste</h2>
-            <p style={styles.text}>
-              Ana Made It Events is built around creating meaningful,
-              beautifully styled moments that feel personal, elegant, and
-              unforgettable. With a love for design, floral detail, and
-              thoughtful planning, Ana brings a warm and polished touch to every
-              celebration.
-            </p>
-            <p style={styles.text}>
-              From romantic proposals to refined private events, the goal is
-              always the same: to turn your vision into a seamless experience
-              that feels effortless, special, and true to you.
-            </p>
-          </div>
-        </section>
-
-        <section id="services" style={styles.section}>
-          <p style={styles.smallLabel}>SERVICES</p>
-          <h2 style={styles.heading}>Signature offerings</h2>
-
-          <div style={styles.cardGrid}>
-            <div style={styles.serviceCard}>
-              <h3 style={styles.cardTitle}>Proposal Planning</h3>
-              <p style={styles.cardText}>
-                Romantic setups and unforgettable moments tailored to your story.
-              </p>
-            </div>
-
-            <div style={styles.serviceCard}>
-              <h3 style={styles.cardTitle}>Event Design</h3>
-              <p style={styles.cardText}>
-                Cohesive event styling with an elegant, elevated visual identity.
-              </p>
-            </div>
-
-            <div style={styles.serviceCard}>
-              <h3 style={styles.cardTitle}>Floral Arrangements</h3>
-              <p style={styles.cardText}>
-                Custom floral design that brings softness, beauty, and luxury to
-                each event.
-              </p>
-            </div>
-
-            <div style={styles.serviceCard}>
-              <h3 style={styles.cardTitle}>Day-Of Coordination</h3>
-              <p style={styles.cardText}>
-                Calm, organized support so every detail flows beautifully on the
-                day.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section id="proposals" style={styles.section}>
-          <p style={styles.smallLabel}>PROPOSALS</p>
-          <h2 style={styles.heading}>Proposal Gallery</h2>
-          <p style={styles.text}>
-            A glimpse into some of our romantic and thoughtfully designed
-            proposal moments.
-          </p>
-
-          <div style={styles.slideshowWrapper}>
-            <img
-              src={proposalImages[currentProposalIndex]}
-              alt={`Proposal ${currentProposalIndex + 1}`}
-              style={{
-                ...styles.slideshowImage,
-                opacity: fade ? 1 : 0,
-              }}
+        <section id="about" className="px-6 py-20 lg:px-10">
+          <div className="mx-auto max-w-6xl rounded-[2rem] border border-stone-200 bg-white/80 p-8 shadow-xl backdrop-blur md:p-14">
+            <SectionHeader
+              eyebrow="About"
+              title="A polished, personal planning experience"
+              description="Ana Made It Events blends thoughtful coordination, beautiful styling, and romantic details to create celebrations that feel elevated from the very first impression to the final photo."
             />
-          </div>
 
-          <div style={styles.thumbnailRow}>
-            {proposalImages.map((image, index) => (
-              <button
-                key={image}
-                onClick={() => {
-                  setCurrentProposalIndex(index);
-                  setFade(true);
-                }}
-                style={{
-                  ...styles.thumbnailButton,
-                  border:
-                    currentProposalIndex === index
-                      ? "2px solid #d88ea0"
-                      : "1px solid #ead7dc",
-                }}
-              >
-                <img
-                  src={image}
-                  alt={`Thumbnail ${index + 1}`}
-                  style={styles.thumbnailImage}
-                />
-              </button>
-            ))}
+            <div className="grid gap-6 md:grid-cols-3">
+              {[
+                {
+                  title: "Elegant Design",
+                  text: "Clean, luxurious visuals and curated details that feel high-end without losing warmth.",
+                },
+                {
+                  title: "Seamless Flow",
+                  text: "From inquiry to event day, every step is designed to feel organized, calm, and effortless.",
+                },
+                {
+                  title: "Meaningful Moments",
+                  text: "Every proposal and wedding is tailored so the final experience feels deeply personal.",
+                },
+              ].map((item) => (
+                <div key={item.title} className="rounded-[1.75rem] border border-stone-200 bg-[#faf8f4] p-7 shadow-sm">
+                  <h3 className="font-serif text-2xl text-stone-900">{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-stone-600 md:text-base">{item.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section id="contact" style={styles.section}>
-          <div style={styles.contentCard}>
-            <p style={styles.smallLabel}>CONTACT</p>
-            <h2 style={styles.heading}>Let’s create something beautiful</h2>
-            <p style={styles.text}>
-              Reach out directly to start planning your next event.
-            </p>
+        <section id="proposals" className="px-6 py-20 lg:px-10">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeader
+              eyebrow="Signature Services"
+              title="Proposals"
+              description="An immersive proposal gallery with the same smooth scrolling flow and slideshow presentation style you wanted, so visitors can move through the site naturally or jump here from the top navigation."
+            />
+            <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
+              <div>
+                <h3 className="font-serif text-3xl text-stone-900 md:text-4xl">Thoughtfully styled proposal moments</h3>
+                <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
+                  Showcase your proposal work here using images stored in <span className="font-semibold">public/proposal-gallery</span>.
+                  As long as the filenames above match your actual files, the images will load normally instead of showing gray placeholders.
+                </p>
+                <p className="mt-4 text-base leading-8 text-stone-600 md:text-lg">
+                  If your file names are different, just replace the names in the <span className="font-semibold">proposalImages</span> array at the top of this file.
+                </p>
+              </div>
+              <Slideshow images={proposalImages} altPrefix="Proposal" />
+            </div>
+          </div>
+        </section>
 
-            <div style={styles.contactButtonGroup}>
+        <section id="weddings" className="bg-white/60 px-6 py-20 lg:px-10">
+          <div className="mx-auto max-w-7xl">
+            <SectionHeader
+              eyebrow="New Gallery"
+              title="Weddings"
+              description="This new section matches the clickable tab navigation, smooth scroll layout, and fading slideshow effect from the Proposals area, while highlighting your wedding portfolio in a polished, editorial style."
+            />
+            <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+              <Slideshow images={weddingImages} altPrefix="Wedding" />
+              <div>
+                <h3 className="font-serif text-3xl text-stone-900 md:text-4xl">Romantic wedding imagery with an editorial feel</h3>
+                <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
+                  This wedding slideshow uses the three images you added and keeps the same luxury presentation style as the rest of the site.
+                </p>
+                <p className="mt-4 text-base leading-8 text-stone-600 md:text-lg">
+                  To add more wedding photos later, place them in <span className="font-semibold">public/proposal-gallery</span> and add the new file names to the <span className="font-semibold">weddingImages</span> array.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="px-6 py-20 lg:px-10">
+          <div className="mx-auto max-w-5xl rounded-[2rem] bg-stone-900 px-8 py-12 text-white shadow-2xl md:px-14 md:py-16">
+            <div className="text-center">
+              <p className="text-xs uppercase tracking-[0.4em] text-stone-300">Contact</p>
+              <h2 className="mt-4 font-serif text-4xl md:text-5xl">Let’s create something unforgettable</h2>
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-stone-300 md:text-lg">
+                Reach out directly for proposal planning, wedding coordination, floral styling, and curated event design.
+              </p>
+            </div>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
               <a
-                href="https://instagram.com/anamadeit_events"
+                href="https://www.instagram.com/anamadeitevents/"
                 target="_blank"
                 rel="noreferrer"
-                style={styles.contactButton}
+                className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
               >
-                Instagram
+                <Instagram className="h-5 w-5" />
+                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">Instagram</p>
+                <p className="mt-2 text-lg">@anamadeitevents</p>
               </a>
 
-              <a href="tel:6167062828" style={styles.contactButton}>
-                Call Ana
+              <a
+                href="tel:6167062828"
+                className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
+              >
+                <Phone className="h-5 w-5" />
+                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">Phone</p>
+                <p className="mt-2 text-lg">616-706-2828</p>
               </a>
 
               <a
                 href="mailto:anabelle1030@gmail.com"
-                style={styles.contactButton}
+                className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
               >
-                Email Ana
+                <Mail className="h-5 w-5" />
+                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">Email</p>
+                <p className="mt-2 text-lg break-all">anabelle1030@gmail.com</p>
               </a>
-            </div>
-
-            <div style={styles.contactDetails}>
-              <p style={styles.text}>
-                <strong>Instagram:</strong> @anamadeit_events
-              </p>
-              <p style={styles.text}>
-                <strong>Phone:</strong> 616-706-2828
-              </p>
-              <p style={styles.text}>
-                <strong>Email:</strong> anabelle1030@gmail.com
-              </p>
             </div>
           </div>
         </section>
@@ -263,266 +330,3 @@ export default function Page() {
     </div>
   );
 }
-
-function InstagramIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={{ width: 28, height: 28 }}
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
-      <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-      <path d="M17.5 6.5h.01" />
-    </svg>
-  );
-}
-
-const styles: { [key: string]: React.CSSProperties } = {
-  page: {
-    fontFamily: "Georgia, serif",
-    minHeight: "100vh",
-    background:
-      "linear-gradient(to bottom, #fff8fa 0%, #fdf1f4 45%, #fffafb 100%)",
-    color: "#5f4a52",
-    scrollBehavior: "smooth",
-  },
-  header: {
-    padding: "28px 40px 22px",
-    borderBottom: "1px solid #f0d9df",
-    background: "rgba(255, 250, 251, 0.92)",
-    backdropFilter: "blur(10px)",
-    position: "sticky",
-    top: 0,
-    zIndex: 100,
-  },
-  headerTop: {
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "space-between",
-    gap: "24px",
-    marginBottom: "20px",
-    flexWrap: "wrap",
-  },
-  eyebrow: {
-    margin: 0,
-    fontSize: "0.72rem",
-    letterSpacing: "0.18em",
-    textTransform: "uppercase",
-    color: "#bf8b98",
-  },
-  logo: {
-    margin: "8px 0 8px",
-    fontSize: "2.6rem",
-    fontWeight: 500,
-    color: "#c97a91",
-  },
-  tagline: {
-    margin: 0,
-    fontSize: "1rem",
-    color: "#8b6b75",
-    fontStyle: "italic",
-    maxWidth: "680px",
-    lineHeight: 1.6,
-  },
-  topRightContact: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end",
-    gap: "10px",
-  },
-  instagramLink: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#c97a91",
-    textDecoration: "none",
-    backgroundColor: "#fff",
-    border: "1px solid #efd6dd",
-    borderRadius: "999px",
-    width: "48px",
-    height: "48px",
-    boxShadow: "0 8px 24px rgba(201, 122, 145, 0.10)",
-    flexShrink: 0,
-  },
-  headerContactLink: {
-    color: "#8b6b75",
-    textDecoration: "none",
-    fontSize: "0.96rem",
-    lineHeight: 1.4,
-  },
-  nav: {
-    display: "flex",
-    gap: "12px",
-    flexWrap: "wrap",
-  },
-  navButton: {
-    padding: "10px 18px",
-    border: "1px solid #ecd6dc",
-    backgroundColor: "#fffafb",
-    color: "#8f6773",
-    cursor: "pointer",
-    borderRadius: "999px",
-    fontSize: "0.95rem",
-    textTransform: "capitalize",
-    boxShadow: "0 2px 10px rgba(201, 122, 145, 0.05)",
-  },
-  main: {
-    padding: "28px 24px 64px",
-  },
-  section: {
-    maxWidth: "1120px",
-    margin: "0 auto 34px",
-    scrollMarginTop: "160px",
-  },
-  heroCard: {
-    background: "rgba(255,255,255,0.78)",
-    border: "1px solid #f2dbe1",
-    borderRadius: "28px",
-    padding: "42px 36px",
-    boxShadow: "0 20px 50px rgba(201, 122, 145, 0.10)",
-  },
-  contentCard: {
-    background: "rgba(255,255,255,0.82)",
-    border: "1px solid #f2dbe1",
-    borderRadius: "24px",
-    padding: "36px 32px",
-    boxShadow: "0 18px 40px rgba(201, 122, 145, 0.08)",
-  },
-  smallLabel: {
-    margin: 0,
-    fontSize: "0.75rem",
-    letterSpacing: "0.18em",
-    textTransform: "uppercase",
-    color: "#c08c99",
-  },
-  heroTitle: {
-    fontSize: "2rem",
-    lineHeight: 1.5,
-    color: "#7d5b66",
-    marginTop: "16px",
-    marginBottom: "28px",
-    fontWeight: 500,
-  },
-  heading: {
-    fontSize: "2rem",
-    color: "#c97a91",
-    marginTop: "12px",
-    marginBottom: "16px",
-    fontWeight: 500,
-  },
-  text: {
-    fontSize: "1.05rem",
-    lineHeight: 1.8,
-    color: "#7e646d",
-  },
-  featureGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "16px",
-    marginTop: "18px",
-  },
-  featurePill: {
-    backgroundColor: "#fff",
-    border: "1px solid #f0d6de",
-    borderRadius: "18px",
-    padding: "16px 18px",
-    color: "#8b6873",
-    boxShadow: "0 10px 22px rgba(201, 122, 145, 0.06)",
-    fontSize: "0.96rem",
-  },
-  cardGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-    gap: "22px",
-    marginTop: "24px",
-  },
-  serviceCard: {
-    background: "rgba(255,255,255,0.85)",
-    border: "1px solid #efd7de",
-    padding: "28px",
-    borderRadius: "22px",
-    boxShadow: "0 14px 34px rgba(201, 122, 145, 0.08)",
-  },
-  cardTitle: {
-    marginTop: 0,
-    marginBottom: "12px",
-    color: "#bb7389",
-    fontSize: "1.25rem",
-    fontWeight: 500,
-  },
-  cardText: {
-    margin: 0,
-    color: "#80656e",
-    lineHeight: 1.7,
-    fontSize: "0.98rem",
-  },
-  slideshowWrapper: {
-    marginTop: "28px",
-    width: "100%",
-    maxWidth: "920px",
-    aspectRatio: "4 / 3",
-    overflow: "hidden",
-    borderRadius: "24px",
-    backgroundColor: "#f6e7eb",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    boxShadow: "0 22px 48px rgba(201, 122, 145, 0.14)",
-    border: "1px solid #efd8df",
-  },
-  slideshowImage: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    transition: "opacity 0.5s ease-in-out",
-    display: "block",
-  },
-  thumbnailRow: {
-    display: "flex",
-    gap: "12px",
-    flexWrap: "wrap",
-    marginTop: "20px",
-  },
-  thumbnailButton: {
-    padding: 0,
-    background: "#fff",
-    borderRadius: "14px",
-    overflow: "hidden",
-    cursor: "pointer",
-    boxShadow: "0 8px 20px rgba(201, 122, 145, 0.08)",
-  },
-  thumbnailImage: {
-    width: "100px",
-    height: "80px",
-    objectFit: "cover",
-    display: "block",
-  },
-  contactButtonGroup: {
-    display: "flex",
-    gap: "14px",
-    flexWrap: "wrap",
-    marginTop: "18px",
-    marginBottom: "18px",
-  },
-  contactButton: {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "12px 18px",
-    borderRadius: "999px",
-    background: "linear-gradient(135deg, #d88ea0, #c97a91)",
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "0.96rem",
-    boxShadow: "0 10px 24px rgba(201, 122, 145, 0.18)",
-  },
-  contactDetails: {
-    marginTop: "6px",
-  },
-};
