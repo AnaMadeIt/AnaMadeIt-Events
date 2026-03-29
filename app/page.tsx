@@ -38,7 +38,13 @@ export default function Page() {
     <div style={styles.page}>
       <header style={styles.header}>
         <div style={styles.headerTop}>
-          <h1 style={styles.logo}>Ana Made It Events</h1>
+          <div>
+            <p style={styles.eyebrow}>Luxury Event Planning & Floral Styling</p>
+            <h1 style={styles.logo}>Ana Made It Events</h1>
+            <p style={styles.tagline}>
+              Thoughtful celebrations, beautiful details, unforgettable moments.
+            </p>
+          </div>
 
           <a
             href="https://instagram.com/anamadeit_events"
@@ -70,41 +76,82 @@ export default function Page() {
       <main style={styles.main}>
         {activeTab === "home" && (
           <section style={styles.section}>
-            <h2 style={styles.heading}>Welcome</h2>
-            <p style={styles.text}>
-              Creating thoughtful, elevated event experiences with beautiful
-              design and intentional details.
-            </p>
+            <div style={styles.heroCard}>
+              <p style={styles.smallLabel}>CURATED EVENT EXPERIENCES</p>
+              <h2 style={styles.heroTitle}>
+                Elegant celebrations for weddings, proposals, birthdays, floral
+                arrangements, and custom events designed with intention, beauty,
+                and timeless detail.
+              </h2>
+
+              <div style={styles.featureGrid}>
+                <div style={styles.featurePill}>Over 20 years of event experience</div>
+                <div style={styles.featurePill}>Luxury floral and design styling</div>
+                <div style={styles.featurePill}>Personalized planning from A to Z</div>
+                <div style={styles.featurePill}>Seamless celebrations with timeless detail</div>
+              </div>
+            </div>
           </section>
         )}
 
         {activeTab === "about" && (
           <section style={styles.section}>
-            <h2 style={styles.heading}>About</h2>
-            <p style={styles.text}>
-              Ana Made It Events specializes in curated celebrations, custom
-              proposals, and memorable event styling.
-            </p>
+            <div style={styles.contentCard}>
+              <p style={styles.smallLabel}>ABOUT</p>
+              <h2 style={styles.heading}>Designed with heart and elevated taste</h2>
+              <p style={styles.text}>
+                Ana Made It Events creates refined, beautiful experiences centered
+                around meaningful moments. From romantic proposals to elegant
+                celebrations and floral styling, every event is tailored with care,
+                warmth, and a polished design-forward touch.
+              </p>
+            </div>
           </section>
         )}
 
         {activeTab === "services" && (
           <section style={styles.section}>
-            <h2 style={styles.heading}>Services</h2>
+            <p style={styles.smallLabel}>SERVICES</p>
+            <h2 style={styles.heading}>Signature offerings</h2>
+
             <div style={styles.cardGrid}>
-              <div style={styles.card}>Proposal Planning</div>
-              <div style={styles.card}>Event Design</div>
-              <div style={styles.card}>Floral Styling</div>
-              <div style={styles.card}>Day-Of Coordination</div>
+              <div style={styles.serviceCard}>
+                <h3 style={styles.cardTitle}>Proposal Planning</h3>
+                <p style={styles.cardText}>
+                  Romantic setups and unforgettable moments tailored to your story.
+                </p>
+              </div>
+
+              <div style={styles.serviceCard}>
+                <h3 style={styles.cardTitle}>Event Design</h3>
+                <p style={styles.cardText}>
+                  Cohesive event styling with an elegant, elevated visual identity.
+                </p>
+              </div>
+
+              <div style={styles.serviceCard}>
+                <h3 style={styles.cardTitle}>Floral Arrangements</h3>
+                <p style={styles.cardText}>
+                  Custom floral design that brings softness, beauty, and luxury to each event.
+                </p>
+              </div>
+
+              <div style={styles.serviceCard}>
+                <h3 style={styles.cardTitle}>Day-Of Coordination</h3>
+                <p style={styles.cardText}>
+                  Calm, organized support so every detail flows beautifully on the day.
+                </p>
+              </div>
             </div>
           </section>
         )}
 
         {activeTab === "proposals" && (
           <section style={styles.section}>
+            <p style={styles.smallLabel}>PROPOSALS</p>
             <h2 style={styles.heading}>Proposal Gallery</h2>
             <p style={styles.text}>
-              Selected proposal moments from recent event setups.
+              A glimpse into some of our romantic and thoughtfully designed proposal moments.
             </p>
 
             <div style={styles.slideshowWrapper}>
@@ -130,8 +177,8 @@ export default function Page() {
                     ...styles.thumbnailButton,
                     border:
                       currentProposalIndex === index
-                        ? "2px solid #000"
-                        : "1px solid #ccc",
+                        ? "2px solid #d88ea0"
+                        : "1px solid #ead7dc",
                   }}
                 >
                   <img
@@ -147,9 +194,12 @@ export default function Page() {
 
         {activeTab === "contact" && (
           <section style={styles.section}>
-            <h2 style={styles.heading}>Contact</h2>
-            <p style={styles.text}>Email: hello@anamadeitevents.com</p>
-            <p style={styles.text}>Instagram: @anamadeit_events</p>
+            <div style={styles.contentCard}>
+              <p style={styles.smallLabel}>CONTACT</p>
+              <h2 style={styles.heading}>Let’s create something beautiful</h2>
+              <p style={styles.text}>Email: hello@anamadeitevents.com</p>
+              <p style={styles.text}>Instagram: @anamadeit_events</p>
+            </div>
           </section>
         )}
       </main>
@@ -182,36 +232,62 @@ function capitalize(word: string) {
 
 const styles: { [key: string]: React.CSSProperties } = {
   page: {
-    fontFamily: "Arial, sans-serif",
+    fontFamily: "Georgia, serif",
     minHeight: "100vh",
-    backgroundColor: "#f9f6f2",
-    color: "#222",
+    background:
+      "linear-gradient(to bottom, #fff8fa 0%, #fdf1f4 45%, #fffafb 100%)",
+    color: "#5f4a52",
   },
   header: {
-    padding: "24px 40px",
-    borderBottom: "1px solid #ddd",
-    backgroundColor: "#fff",
+    padding: "28px 40px 22px",
+    borderBottom: "1px solid #f0d9df",
+    background: "rgba(255, 250, 251, 0.9)",
+    backdropFilter: "blur(10px)",
     position: "sticky",
     top: 0,
     zIndex: 10,
   },
   headerTop: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
-    gap: "16px",
-    marginBottom: "16px",
+    gap: "20px",
+    marginBottom: "20px",
+  },
+  eyebrow: {
+    margin: 0,
+    fontSize: "0.72rem",
+    letterSpacing: "0.18em",
+    textTransform: "uppercase",
+    color: "#bf8b98",
   },
   logo: {
+    margin: "8px 0 8px",
+    fontSize: "2.6rem",
+    fontWeight: 500,
+    color: "#c97a91",
+  },
+  tagline: {
     margin: 0,
-    fontSize: "2rem",
+    fontSize: "1rem",
+    color: "#8b6b75",
+    fontStyle: "italic",
+    maxWidth: "680px",
+    lineHeight: 1.6,
   },
   instagramLink: {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    color: "#222",
+    color: "#c97a91",
     textDecoration: "none",
+    backgroundColor: "#fff",
+    border: "1px solid #efd6dd",
+    borderRadius: "999px",
+    width: "48px",
+    height: "48px",
+    boxShadow: "0 8px 24px rgba(201, 122, 145, 0.10)",
+    flexShrink: 0,
   },
   nav: {
     display: "flex",
@@ -219,58 +295,123 @@ const styles: { [key: string]: React.CSSProperties } = {
     flexWrap: "wrap",
   },
   navButton: {
-    padding: "10px 16px",
-    border: "1px solid #ccc",
-    backgroundColor: "#fff",
+    padding: "10px 18px",
+    border: "1px solid #ecd6dc",
+    backgroundColor: "#fffafb",
+    color: "#8f6773",
     cursor: "pointer",
     borderRadius: "999px",
     fontSize: "0.95rem",
+    textTransform: "capitalize",
+    boxShadow: "0 2px 10px rgba(201, 122, 145, 0.05)",
   },
   activeNavButton: {
-    backgroundColor: "#222",
+    background: "linear-gradient(135deg, #d88ea0, #c97a91)",
     color: "#fff",
-    border: "1px solid #222",
+    border: "1px solid #c97a91",
   },
   main: {
-    padding: "40px",
+    padding: "48px 24px 64px",
   },
   section: {
-    maxWidth: "1100px",
+    maxWidth: "1120px",
     margin: "0 auto",
+  },
+  heroCard: {
+    background: "rgba(255,255,255,0.78)",
+    border: "1px solid #f2dbe1",
+    borderRadius: "28px",
+    padding: "42px 36px",
+    boxShadow: "0 20px 50px rgba(201, 122, 145, 0.10)",
+  },
+  contentCard: {
+    background: "rgba(255,255,255,0.82)",
+    border: "1px solid #f2dbe1",
+    borderRadius: "24px",
+    padding: "36px 32px",
+    boxShadow: "0 18px 40px rgba(201, 122, 145, 0.08)",
+  },
+  smallLabel: {
+    margin: 0,
+    fontSize: "0.75rem",
+    letterSpacing: "0.18em",
+    textTransform: "uppercase",
+    color: "#c08c99",
+  },
+  heroTitle: {
+    fontSize: "2rem",
+    lineHeight: 1.5,
+    color: "#7d5b66",
+    marginTop: "16px",
+    marginBottom: "28px",
+    fontWeight: 500,
   },
   heading: {
     fontSize: "2rem",
-    marginBottom: "12px",
+    color: "#c97a91",
+    marginTop: "12px",
+    marginBottom: "16px",
+    fontWeight: 500,
   },
   text: {
-    fontSize: "1rem",
-    lineHeight: 1.6,
+    fontSize: "1.05rem",
+    lineHeight: 1.8,
+    color: "#7e646d",
+  },
+  featureGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "16px",
+    marginTop: "18px",
+  },
+  featurePill: {
+    backgroundColor: "#fff",
+    border: "1px solid #f0d6de",
+    borderRadius: "18px",
+    padding: "16px 18px",
+    color: "#8b6873",
+    boxShadow: "0 10px 22px rgba(201, 122, 145, 0.06)",
+    fontSize: "0.96rem",
   },
   cardGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-    gap: "20px",
+    gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+    gap: "22px",
     marginTop: "24px",
   },
-  card: {
-    backgroundColor: "#fff",
+  serviceCard: {
+    background: "rgba(255,255,255,0.85)",
+    border: "1px solid #efd7de",
     padding: "28px",
-    borderRadius: "16px",
-    border: "1px solid #e5e5e5",
-    textAlign: "center",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.05)",
+    borderRadius: "22px",
+    boxShadow: "0 14px 34px rgba(201, 122, 145, 0.08)",
+  },
+  cardTitle: {
+    marginTop: 0,
+    marginBottom: "12px",
+    color: "#bb7389",
+    fontSize: "1.25rem",
+    fontWeight: 500,
+  },
+  cardText: {
+    margin: 0,
+    color: "#80656e",
+    lineHeight: 1.7,
+    fontSize: "0.98rem",
   },
   slideshowWrapper: {
     marginTop: "28px",
     width: "100%",
-    maxWidth: "900px",
+    maxWidth: "920px",
     aspectRatio: "4 / 3",
     overflow: "hidden",
-    borderRadius: "20px",
-    backgroundColor: "#eee",
+    borderRadius: "24px",
+    backgroundColor: "#f6e7eb",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    boxShadow: "0 22px 48px rgba(201, 122, 145, 0.14)",
+    border: "1px solid #efd8df",
   },
   slideshowImage: {
     width: "100%",
@@ -287,10 +428,11 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   thumbnailButton: {
     padding: 0,
-    background: "none",
-    borderRadius: "12px",
+    background: "#fff",
+    borderRadius: "14px",
     overflow: "hidden",
     cursor: "pointer",
+    boxShadow: "0 8px 20px rgba(201, 122, 145, 0.08)",
   },
   thumbnailImage: {
     width: "100px",
