@@ -492,20 +492,47 @@ export default function AnaMadeItEventsPage() {
           </div>
         </section>
 
-        <section id="aboutme" className="px-6 py-24 lg:px-10 bg-[#fdfaf6]">
-          <div className="mx-auto max-w-4xl text-center">
-            <img
-              src="/proposal-gallery/aboutme.jpg"
-              alt="Ana Breen"
-              className="mx-auto mb-8 w-[260px] md:w-[320px] rounded-[2rem] shadow-xl object-cover"
-            />
-            <h2 className={`${serifFont.className} text-4xl md:text-5xl mb-6`}>
-              About Me
-            </h2>
-            <p className="text-lg leading-8 text-stone-600">
-              My name is Ana Breen, and I have been doing events for over 20 years. If there is one thing I know, it is that everybody wants to create special memories for the moments that matter most. My mission is to make sure that you can come to me with any idea from A to Z, and I will take it from there! Everybody deserves to have the event of their dreams, and to create memories that last a lifetime. Because today existed!
-            </p>
+        <section id="aboutme" className="relative overflow-hidden bg-[#fdfaf6] px-6 py-24 lg:px-10">
+          <div className="pointer-events-none absolute inset-0 opacity-60">
+            <div className="absolute left-[-40px] top-16 text-7xl md:text-8xl">🌸</div>
+            <div className="absolute right-8 top-24 text-5xl md:text-6xl">🌿</div>
+            <div className="absolute bottom-20 left-10 text-6xl md:text-7xl">🌷</div>
+            <div className="absolute bottom-10 right-[-10px] text-7xl md:text-8xl">🌸</div>
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 35 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]"
+          >
+            <div className="relative mx-auto w-full max-w-[360px]">
+              <div className="absolute -left-5 -top-5 h-full w-full rounded-[2rem] bg-white/70 shadow-2xl" />
+              <div className="relative rotate-[-3deg] rounded-[2rem] bg-white p-5 shadow-[0_24px_60px_rgba(0,0,0,0.14)]">
+                <div className="rounded-[1.5rem] bg-[#f7f1ea] p-3">
+                  <img
+                    src="/proposal-gallery/aboutme.jpg"
+                    alt="Ana Breen"
+                    className="h-auto w-full rounded-[1.25rem] object-cover shadow-lg"
+                  />
+                </div>
+                <p className={`${scriptFont.className} mt-4 text-center text-3xl text-stone-700 md:text-4xl`}>
+                  Ana Breen
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-[2rem] border border-stone-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur md:p-12 lg:text-left">
+              <p className="mb-3 text-xs uppercase tracking-[0.4em] text-stone-500">About Me</p>
+              <h2 className={`${serifFont.className} mb-6 text-4xl text-stone-900 md:text-5xl`}>
+                Creating beautiful memories that last a lifetime
+              </h2>
+              <p className="text-lg leading-8 text-stone-600">
+                My name is Ana Breen, and I have been doing events for over 20 years. If there is one thing I know, it is that everybody wants to create special memories for the moments that matter most. My mission is to make sure that you can come to me with any idea from A to Z, and I will take it from there! Everybody deserves to have the event of their dreams, and to create memories that last a lifetime. Because today existed!
+              </p>
+            </div>
+          </motion.div>
         </section>
       </main>
     </div>
