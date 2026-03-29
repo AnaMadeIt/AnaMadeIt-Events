@@ -3,24 +3,30 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 export default function Page() {
-  const tabs = ["home", "about", "services", "proposals", "contact"];
-  const [activeTab, setActiveTab] = useState("home");
+  const navItems = [
+    { label: "Home", id: "home" },
+    { label: "About Me", id: "about" },
+    { label: "Services", id: "services" },
+    { label: "Proposals", id: "proposals" },
+    { label: "Contact", id: "contact" },
+  ];
+
   const [currentProposalIndex, setCurrentProposalIndex] = useState(0);
   const [fade, setFade] = useState(true);
 
   const proposalImages = useMemo(
     () => [
-      "/proposals-gallery/proposal1.jpg",
-      "/proposals-gallery/proposal2.jpg",
-      "/proposals-gallery/proposal3.jpg",
-      "/proposals-gallery/proposal4.jpg",
-      "/proposals-gallery/proposal5.jpg",
+      "/proposal-gallery/proposal1.jpg",
+      "/proposal-gallery/proposal2.jpg",
+      "/proposal-gallery/proposal3.jpg",
+      "/proposal-gallery/proposal4.jpg",
+      "/proposal-gallery/proposal5.jpg",
     ],
     []
   );
 
   useEffect(() => {
-    if (activeTab !== "proposals" || proposalImages.length === 0) return;
+    if (proposalImages.length === 0) return;
 
     const interval = setInterval(() => {
       setFade(false);
@@ -32,7 +38,14 @@ export default function Page() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [activeTab, proposalImages]);
+  }, [proposalImages]);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <div style={styles.page}>
@@ -46,162 +59,206 @@ export default function Page() {
             </p>
           </div>
 
-          <a
-            href="https://instagram.com/anamadeit_events"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Visit Ana Made It Events on Instagram"
-            style={styles.instagramLink}
-          >
-            <InstagramIcon />
-          </a>
+          <div style={styles.topRightContact}>
+            <a
+              href="https://instagram.com/anamadeit_events"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visit Ana Made It Events on Instagram"
+              style={styles.instagramLink}
+            >
+              <InstagramIcon />
+            </a>
+
+            <a href="tel:6167062828" style={styles.headerContactLink}>
+              616-706-2828
+            </a>
+
+            <a
+              href="mailto:anabelle1030@gmail.com"
+              style={styles.headerContactLink}
+            >
+              anabelle1030@gmail.com
+            </a>
+          </div>
         </div>
 
         <nav style={styles.nav}>
-          {tabs.map((tab) => (
+          {navItems.map((item) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              style={{
-                ...styles.navButton,
-                ...(activeTab === tab ? styles.activeNavButton : {}),
-              }}
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              style={styles.navButton}
             >
-              {capitalize(tab)}
+              {item.label}
             </button>
           ))}
         </nav>
       </header>
 
       <main style={styles.main}>
-        {activeTab === "home" && (
-          <section style={styles.section}>
-            <div style={styles.heroCard}>
-              <p style={styles.smallLabel}>CURATED EVENT EXPERIENCES</p>
-              <h2 style={styles.heroTitle}>
-                Elegant celebrations for weddings, proposals, birthdays, floral
-                arrangements, and custom events designed with intention, beauty,
-                and timeless detail.
-              </h2>
+        <section id="home" style={styles.section}>
+          <div style={styles.heroCard}>
+            <p style={styles.smallLabel}>CURATED EVENT EXPERIENCES</p>
+            <h2 style={styles.heroTitle}>
+              Elegant celebrations for weddings, proposals, birthdays, floral
+              arrangements, and custom events designed with intention, beauty,
+              and timeless detail.
+            </h2>
 
-              <div style={styles.featureGrid}>
-                <div style={styles.featurePill}>Over 20 years of event experience</div>
-                <div style={styles.featurePill}>Luxury floral and design styling</div>
-                <div style={styles.featurePill}>Personalized planning from A to Z</div>
-                <div style={styles.featurePill}>Seamless celebrations with timeless detail</div>
-              </div>
+            <div style={styles.featureGrid}>
+              <div style={styles.featurePill}>Over 20 years of event experience</div>
+              <div style={styles.featurePill}>Luxury floral and design styling</div>
+              <div style={styles.featurePill}>Personalized planning from A to Z</div>
+              <div style={styles.featurePill}>Seamless celebrations with timeless detail</div>
             </div>
-          </section>
-        )}
+          </div>
+        </section>
 
-        {activeTab === "about" && (
-          <section style={styles.section}>
-            <div style={styles.contentCard}>
-              <p style={styles.smallLabel}>ABOUT</p>
-              <h2 style={styles.heading}>Designed with heart and elevated taste</h2>
-              <p style={styles.text}>
-                Ana Made It Events creates refined, beautiful experiences centered
-                around meaningful moments. From romantic proposals to elegant
-                celebrations and floral styling, every event is tailored with care,
-                warmth, and a polished design-forward touch.
+        <section id="about" style={styles.section}>
+          <div style={styles.contentCard}>
+            <p style={styles.smallLabel}>ABOUT ME</p>
+            <h2 style={styles.heading}>Designed with heart and elevated taste</h2>
+            <p style={styles.text}>
+              Ana Made It Events is built around creating meaningful,
+              beautifully styled moments that feel personal, elegant, and
+              unforgettable. With a love for design, floral detail, and
+              thoughtful planning, Ana brings a warm and polished touch to every
+              celebration.
+            </p>
+            <p style={styles.text}>
+              From romantic proposals to refined private events, the goal is
+              always the same: to turn your vision into a seamless experience
+              that feels effortless, special, and true to you.
+            </p>
+          </div>
+        </section>
+
+        <section id="services" style={styles.section}>
+          <p style={styles.smallLabel}>SERVICES</p>
+          <h2 style={styles.heading}>Signature offerings</h2>
+
+          <div style={styles.cardGrid}>
+            <div style={styles.serviceCard}>
+              <h3 style={styles.cardTitle}>Proposal Planning</h3>
+              <p style={styles.cardText}>
+                Romantic setups and unforgettable moments tailored to your story.
               </p>
             </div>
-          </section>
-        )}
 
-        {activeTab === "services" && (
-          <section style={styles.section}>
-            <p style={styles.smallLabel}>SERVICES</p>
-            <h2 style={styles.heading}>Signature offerings</h2>
-
-            <div style={styles.cardGrid}>
-              <div style={styles.serviceCard}>
-                <h3 style={styles.cardTitle}>Proposal Planning</h3>
-                <p style={styles.cardText}>
-                  Romantic setups and unforgettable moments tailored to your story.
-                </p>
-              </div>
-
-              <div style={styles.serviceCard}>
-                <h3 style={styles.cardTitle}>Event Design</h3>
-                <p style={styles.cardText}>
-                  Cohesive event styling with an elegant, elevated visual identity.
-                </p>
-              </div>
-
-              <div style={styles.serviceCard}>
-                <h3 style={styles.cardTitle}>Floral Arrangements</h3>
-                <p style={styles.cardText}>
-                  Custom floral design that brings softness, beauty, and luxury to each event.
-                </p>
-              </div>
-
-              <div style={styles.serviceCard}>
-                <h3 style={styles.cardTitle}>Day-Of Coordination</h3>
-                <p style={styles.cardText}>
-                  Calm, organized support so every detail flows beautifully on the day.
-                </p>
-              </div>
+            <div style={styles.serviceCard}>
+              <h3 style={styles.cardTitle}>Event Design</h3>
+              <p style={styles.cardText}>
+                Cohesive event styling with an elegant, elevated visual identity.
+              </p>
             </div>
-          </section>
-        )}
 
-        {activeTab === "proposals" && (
-          <section style={styles.section}>
-            <p style={styles.smallLabel}>PROPOSALS</p>
-            <h2 style={styles.heading}>Proposal Gallery</h2>
+            <div style={styles.serviceCard}>
+              <h3 style={styles.cardTitle}>Floral Arrangements</h3>
+              <p style={styles.cardText}>
+                Custom floral design that brings softness, beauty, and luxury to
+                each event.
+              </p>
+            </div>
+
+            <div style={styles.serviceCard}>
+              <h3 style={styles.cardTitle}>Day-Of Coordination</h3>
+              <p style={styles.cardText}>
+                Calm, organized support so every detail flows beautifully on the
+                day.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="proposals" style={styles.section}>
+          <p style={styles.smallLabel}>PROPOSALS</p>
+          <h2 style={styles.heading}>Proposal Gallery</h2>
+          <p style={styles.text}>
+            A glimpse into some of our romantic and thoughtfully designed
+            proposal moments.
+          </p>
+
+          <div style={styles.slideshowWrapper}>
+            <img
+              src={proposalImages[currentProposalIndex]}
+              alt={`Proposal ${currentProposalIndex + 1}`}
+              style={{
+                ...styles.slideshowImage,
+                opacity: fade ? 1 : 0,
+              }}
+            />
+          </div>
+
+          <div style={styles.thumbnailRow}>
+            {proposalImages.map((image, index) => (
+              <button
+                key={image}
+                onClick={() => {
+                  setCurrentProposalIndex(index);
+                  setFade(true);
+                }}
+                style={{
+                  ...styles.thumbnailButton,
+                  border:
+                    currentProposalIndex === index
+                      ? "2px solid #d88ea0"
+                      : "1px solid #ead7dc",
+                }}
+              >
+                <img
+                  src={image}
+                  alt={`Thumbnail ${index + 1}`}
+                  style={styles.thumbnailImage}
+                />
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" style={styles.section}>
+          <div style={styles.contentCard}>
+            <p style={styles.smallLabel}>CONTACT</p>
+            <h2 style={styles.heading}>Let’s create something beautiful</h2>
             <p style={styles.text}>
-              A glimpse into some of our romantic and thoughtfully designed proposal moments.
+              Reach out directly to start planning your next event.
             </p>
 
-            <div style={styles.slideshowWrapper}>
-              <img
-                src={proposalImages[currentProposalIndex]}
-                alt={`Proposal ${currentProposalIndex + 1}`}
-                style={{
-                  ...styles.slideshowImage,
-                  opacity: fade ? 1 : 0,
-                }}
-              />
+            <div style={styles.contactButtonGroup}>
+              <a
+                href="https://instagram.com/anamadeit_events"
+                target="_blank"
+                rel="noreferrer"
+                style={styles.contactButton}
+              >
+                Instagram
+              </a>
+
+              <a href="tel:6167062828" style={styles.contactButton}>
+                Call Ana
+              </a>
+
+              <a
+                href="mailto:anabelle1030@gmail.com"
+                style={styles.contactButton}
+              >
+                Email Ana
+              </a>
             </div>
 
-            <div style={styles.thumbnailRow}>
-              {proposalImages.map((image, index) => (
-                <button
-                  key={image}
-                  onClick={() => {
-                    setCurrentProposalIndex(index);
-                    setFade(true);
-                  }}
-                  style={{
-                    ...styles.thumbnailButton,
-                    border:
-                      currentProposalIndex === index
-                        ? "2px solid #d88ea0"
-                        : "1px solid #ead7dc",
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt={`Thumbnail ${index + 1}`}
-                    style={styles.thumbnailImage}
-                  />
-                </button>
-              ))}
+            <div style={styles.contactDetails}>
+              <p style={styles.text}>
+                <strong>Instagram:</strong> @anamadeit_events
+              </p>
+              <p style={styles.text}>
+                <strong>Phone:</strong> 616-706-2828
+              </p>
+              <p style={styles.text}>
+                <strong>Email:</strong> anabelle1030@gmail.com
+              </p>
             </div>
-          </section>
-        )}
-
-        {activeTab === "contact" && (
-          <section style={styles.section}>
-            <div style={styles.contentCard}>
-              <p style={styles.smallLabel}>CONTACT</p>
-              <h2 style={styles.heading}>Let’s create something beautiful</h2>
-              <p style={styles.text}>Email: hello@anamadeitevents.com</p>
-              <p style={styles.text}>Instagram: @anamadeit_events</p>
-            </div>
-          </section>
-        )}
+          </div>
+        </section>
       </main>
     </div>
   );
@@ -226,10 +283,6 @@ function InstagramIcon() {
   );
 }
 
-function capitalize(word: string) {
-  return word.charAt(0).toUpperCase() + word.slice(1);
-}
-
 const styles: { [key: string]: React.CSSProperties } = {
   page: {
     fontFamily: "Georgia, serif",
@@ -237,22 +290,24 @@ const styles: { [key: string]: React.CSSProperties } = {
     background:
       "linear-gradient(to bottom, #fff8fa 0%, #fdf1f4 45%, #fffafb 100%)",
     color: "#5f4a52",
+    scrollBehavior: "smooth",
   },
   header: {
     padding: "28px 40px 22px",
     borderBottom: "1px solid #f0d9df",
-    background: "rgba(255, 250, 251, 0.9)",
+    background: "rgba(255, 250, 251, 0.92)",
     backdropFilter: "blur(10px)",
     position: "sticky",
     top: 0,
-    zIndex: 10,
+    zIndex: 100,
   },
   headerTop: {
     display: "flex",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    gap: "20px",
+    gap: "24px",
     marginBottom: "20px",
+    flexWrap: "wrap",
   },
   eyebrow: {
     margin: 0,
@@ -275,6 +330,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     maxWidth: "680px",
     lineHeight: 1.6,
   },
+  topRightContact: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    gap: "10px",
+  },
   instagramLink: {
     display: "inline-flex",
     alignItems: "center",
@@ -288,6 +349,12 @@ const styles: { [key: string]: React.CSSProperties } = {
     height: "48px",
     boxShadow: "0 8px 24px rgba(201, 122, 145, 0.10)",
     flexShrink: 0,
+  },
+  headerContactLink: {
+    color: "#8b6b75",
+    textDecoration: "none",
+    fontSize: "0.96rem",
+    lineHeight: 1.4,
   },
   nav: {
     display: "flex",
@@ -305,17 +372,13 @@ const styles: { [key: string]: React.CSSProperties } = {
     textTransform: "capitalize",
     boxShadow: "0 2px 10px rgba(201, 122, 145, 0.05)",
   },
-  activeNavButton: {
-    background: "linear-gradient(135deg, #d88ea0, #c97a91)",
-    color: "#fff",
-    border: "1px solid #c97a91",
-  },
   main: {
-    padding: "48px 24px 64px",
+    padding: "28px 24px 64px",
   },
   section: {
     maxWidth: "1120px",
-    margin: "0 auto",
+    margin: "0 auto 34px",
+    scrollMarginTop: "160px",
   },
   heroCard: {
     background: "rgba(255,255,255,0.78)",
@@ -439,5 +502,27 @@ const styles: { [key: string]: React.CSSProperties } = {
     height: "80px",
     objectFit: "cover",
     display: "block",
+  },
+  contactButtonGroup: {
+    display: "flex",
+    gap: "14px",
+    flexWrap: "wrap",
+    marginTop: "18px",
+    marginBottom: "18px",
+  },
+  contactButton: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "12px 18px",
+    borderRadius: "999px",
+    background: "linear-gradient(135deg, #d88ea0, #c97a91)",
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "0.96rem",
+    boxShadow: "0 10px 24px rgba(201, 122, 145, 0.18)",
+  },
+  contactDetails: {
+    marginTop: "6px",
   },
 };
