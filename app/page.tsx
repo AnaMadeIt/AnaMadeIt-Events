@@ -3,7 +3,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Great_Vibes, Cormorant_Garamond } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
-import { Instagram, Mail, Phone, ChevronDown, Sparkles } from "lucide-react";
 
 const scriptFont = Great_Vibes({
   subsets: ["latin"],
@@ -111,7 +110,9 @@ function SectionHeader({
       <p className="mb-3 text-xs uppercase tracking-[0.4em] text-stone-500">
         {eyebrow}
       </p>
-      <h2 className={`${serifFont.className} mb-4 text-4xl tracking-wide text-stone-900 md:text-5xl`}>
+      <h2
+        className={`${serifFont.className} mb-4 text-4xl tracking-wide text-stone-900 md:text-5xl`}
+      >
         {title}
       </h2>
       <p className="text-base leading-7 text-stone-600 md:text-lg">
@@ -245,13 +246,16 @@ export default function AnaMadeItEventsPage() {
               <p className="mb-4 text-xs uppercase tracking-[0.45em] text-stone-500">
                 AnaMadeIt Events
               </p>
-              <h2 className={`${serifFont.className} text-5xl leading-tight text-stone-900 md:text-7xl`}>
+              <h2
+                className={`${serifFont.className} text-5xl leading-tight text-stone-900 md:text-7xl`}
+              >
                 Refined celebrations with a romantic, elevated feel.
               </h2>
               <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600 md:text-lg">
-                From unforgettable proposals to beautifully curated weddings and birthdays,
-                AnaMadeIt Events creates warm, intentional celebrations that feel timeless,
-                personal, and effortlessly elegant.
+                From unforgettable proposals to beautifully curated weddings and
+                birthdays, AnaMadeIt Events creates warm, intentional
+                celebrations that feel timeless, personal, and effortlessly
+                elegant.
               </p>
 
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
@@ -285,8 +289,7 @@ export default function AnaMadeItEventsPage() {
               onClick={() => scrollToSection("about")}
               className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-stone-500 transition hover:text-stone-900"
             >
-              Scroll
-              <ChevronDown className="h-4 w-4" />
+              Scroll ↓
             </button>
           </div>
         </section>
@@ -322,7 +325,9 @@ export default function AnaMadeItEventsPage() {
                   transition={{ duration: 0.6 }}
                   className="rounded-[1.75rem] border border-stone-200 bg-[#faf8f4] p-7 shadow-sm"
                 >
-                  <h3 className={`${serifFont.className} text-2xl text-stone-900`}>
+                  <h3
+                    className={`${serifFont.className} text-2xl text-stone-900`}
+                  >
                     {item.title}
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-stone-600 md:text-base">
@@ -348,7 +353,9 @@ export default function AnaMadeItEventsPage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
               >
-                <h3 className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}>
+                <h3
+                  className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}
+                >
                   Thoughtfully styled proposal moments
                 </h3>
                 <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
@@ -391,11 +398,14 @@ export default function AnaMadeItEventsPage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
               >
-                <h3 className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}>
+                <h3
+                  className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}
+                >
                   Romantic wedding imagery with an editorial feel
                 </h3>
                 <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
-                  This wedding slideshow uses your three wedding images from the same gallery folder.
+                  This wedding slideshow uses your three wedding images from the
+                  same gallery folder.
                 </p>
               </motion.div>
             </div>
@@ -416,12 +426,15 @@ export default function AnaMadeItEventsPage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
               >
-                <h3 className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}>
+                <h3
+                  className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}
+                >
                   Beautiful birthday celebrations, styled with the same luxury feel
                 </h3>
                 <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
-                  Right now this section uses sample gallery images so the design is complete.
-                  You can replace them later with actual birthday photos by updating the birthdayImages array.
+                  Right now this section uses sample gallery images so the design
+                  is complete. You can replace them later with actual birthday
+                  photos by updating the birthdayImages array.
                 </p>
               </motion.div>
               <motion.div
@@ -458,7 +471,7 @@ export default function AnaMadeItEventsPage() {
                 rel="noreferrer"
                 className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
               >
-                <Instagram className="h-5 w-5" />
+                <p className="text-2xl">📷</p>
                 <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">
                   Instagram
                 </p>
@@ -469,7 +482,7 @@ export default function AnaMadeItEventsPage() {
                 href="tel:6167062828"
                 className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
               >
-                <Phone className="h-5 w-5" />
+                <p className="text-2xl">📞</p>
                 <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">
                   Phone
                 </p>
@@ -480,7 +493,7 @@ export default function AnaMadeItEventsPage() {
                 href="mailto:anabelle1030@gmail.com"
                 className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
               >
-                <Mail className="h-5 w-5" />
+                <p className="text-2xl">✉️</p>
                 <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">
                   Email
                 </p>
@@ -492,12 +505,23 @@ export default function AnaMadeItEventsPage() {
           </div>
         </section>
 
-        <section id="aboutme" className="relative overflow-hidden bg-[#fdfaf6] px-6 py-24 lg:px-10">
+        <section
+          id="aboutme"
+          className="relative overflow-hidden bg-[#fdfaf6] px-6 py-24 lg:px-10"
+        >
           <div className="pointer-events-none absolute inset-0 opacity-60">
-            <div className="absolute left-[-40px] top-16 text-7xl md:text-8xl">🌸</div>
-            <div className="absolute right-8 top-24 text-5xl md:text-6xl">🌿</div>
-            <div className="absolute bottom-20 left-10 text-6xl md:text-7xl">🌷</div>
-            <div className="absolute bottom-10 right-[-10px] text-7xl md:text-8xl">🌸</div>
+            <div className="absolute left-[-40px] top-16 text-7xl md:text-8xl">
+              🌸
+            </div>
+            <div className="absolute right-8 top-24 text-5xl md:text-6xl">
+              🌿
+            </div>
+            <div className="absolute bottom-20 left-10 text-6xl md:text-7xl">
+              🌷
+            </div>
+            <div className="absolute bottom-10 right-[-10px] text-7xl md:text-8xl">
+              🌸
+            </div>
           </div>
 
           <motion.div
@@ -517,19 +541,31 @@ export default function AnaMadeItEventsPage() {
                     className="h-auto w-full rounded-[1.25rem] object-cover shadow-lg"
                   />
                 </div>
-                <p className={`${scriptFont.className} mt-4 text-center text-3xl text-stone-700 md:text-4xl`}>
+                <p
+                  className={`${scriptFont.className} mt-4 text-center text-3xl text-stone-700 md:text-4xl`}
+                >
                   Ana Breen
                 </p>
               </div>
             </div>
 
             <div className="rounded-[2rem] border border-stone-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur md:p-12 lg:text-left">
-              <p className="mb-3 text-xs uppercase tracking-[0.4em] text-stone-500">About Me</p>
-              <h2 className={`${serifFont.className} mb-6 text-4xl text-stone-900 md:text-5xl`}>
+              <p className="mb-3 text-xs uppercase tracking-[0.4em] text-stone-500">
+                About Me
+              </p>
+              <h2
+                className={`${serifFont.className} mb-6 text-4xl text-stone-900 md:text-5xl`}
+              >
                 Creating beautiful memories that last a lifetime
               </h2>
               <p className="text-lg leading-8 text-stone-600">
-                My name is Ana Breen, and I have been doing events for over 20 years. If there is one thing I know, it is that everybody wants to create special memories for the moments that matter most. My mission is to make sure that you can come to me with any idea from A to Z, and I will take it from there! Everybody deserves to have the event of their dreams, and to create memories that last a lifetime. Because today existed!
+                My name is Ana Breen, and I have been doing events for over 20
+                years. If there is one thing I know, it is that everybody wants
+                to create special memories for the moments that matter most. My
+                mission is to make sure that you can come to me with any idea
+                from A to Z, and I will take it from there! Everybody deserves
+                to have the event of their dreams, and to create memories that
+                last a lifetime. Because today existed!
               </p>
             </div>
           </motion.div>
