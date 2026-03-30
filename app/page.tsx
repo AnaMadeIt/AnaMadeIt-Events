@@ -23,6 +23,11 @@ const proposalImages = [
   "/proposal-gallery/IMG_8700.JPG",
   "/proposal-gallery/IMG_8701.JPG",
   "/proposal-gallery/IMG_8702.JPG",
+  "/proposal-gallery/26919FD1-1889-433A-8C1D-77DF5A2DA8B5.JPG",
+  "/proposal-gallery/IMG_1559.jpg",
+  "/proposal-gallery/IMG_0473.jpg",
+  "/proposal-gallery/IMG_8310.jpg",
+  "/proposal-gallery/IMG_1381.jpg",
 ];
 
 const weddingImages = [
@@ -33,10 +38,12 @@ const weddingImages = [
 
 const heroImages = [...proposalImages, ...weddingImages];
 
-const birthdayImages = [
-  "/proposal-gallery/IMG_8698.JPG",
-  "/proposal-gallery/IMG_8699.JPG",
-  "/proposal-gallery/IMG_8700.JPG",
+const corporateImages = [
+  "/proposal-gallery/IMG_1559.jpg",
+  "/proposal-gallery/IMG_0473.jpg",
+  "/proposal-gallery/IMG_8310.jpg",
+  "/proposal-gallery/IMG_1381.jpg",
+  "/proposal-gallery/26919FD1-1889-433A-8C1D-77DF5A2DA8B5.JPG",
 ];
 
 const sections = [
@@ -44,7 +51,7 @@ const sections = [
   { id: "about", label: "About" },
   { id: "proposals", label: "Proposals" },
   { id: "weddings", label: "Weddings" },
-  { id: "birthdays", label: "Birthdays" },
+  { id: "corporate", label: "Corporate" },
   { id: "contact", label: "Contact" },
   { id: "aboutme", label: "About Me" },
 ];
@@ -109,7 +116,7 @@ function ScrollMagic({ activeSection }: { activeSection: string }) {
   const sectionMap: Record<string, string> = {
     weddings: "👰",
     proposals: "💍",
-    birthdays: "🎂",
+    corporate: "💼",
     home: "✨",
     about: "🌸",
     contact: "💌",
@@ -390,12 +397,12 @@ export default function AnaMadeItEventsPage() {
           </div>
         </section>
 
-        <section id="birthdays" className="bg-[#fff8fb] px-6 py-20 lg:px-10">
+        <section id="corporate" className="bg-[#fff8fb] px-6 py-20 lg:px-10">
           <div className="mx-auto max-w-7xl">
             <SectionHeader
               eyebrow="Celebrations"
-              title="Birthdays"
-              description="A birthday section has been added so your site can grow into more event types with the same polished, animated flow."
+              title="Corporate Events"
+              description="A corporate events section has been added so your site can showcase polished business gatherings with the same refined, elevated presentation."
             />
             <div className="grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr]">
               <motion.div
@@ -405,10 +412,10 @@ export default function AnaMadeItEventsPage() {
                 transition={{ duration: 0.7 }}
               >
                 <h3 className={`${serifFont.className} text-3xl text-[#4a2f3b] md:text-4xl`}>
-                  Beautiful birthday celebrations with the same luxury feel
+                  Stylish corporate celebrations with a luxury feel
                 </h3>
                 <p className="mt-5 text-base leading-8 text-[#7a5d68] md:text-lg">
-                  This section is ready for future birthday galleries while keeping the same design language throughout the site.
+                  This section is ready for brand events, company parties, launches, and elevated business gatherings while keeping the same soft, romantic design language throughout the site.
                 </p>
               </motion.div>
               <motion.div
@@ -417,7 +424,7 @@ export default function AnaMadeItEventsPage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
               >
-                <Slideshow images={birthdayImages} altPrefix="Birthday" />
+                <Slideshow images={corporateImages} altPrefix="Corporate" />
               </motion.div>
             </div>
           </div>
