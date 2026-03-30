@@ -31,6 +31,8 @@ const weddingImages = [
   "/proposal-gallery/IMG_9374.JPG",
 ];
 
+const heroImages = [...proposalImages, ...weddingImages];
+
 const birthdayImages = [
   "/proposal-gallery/IMG_8698.JPG",
   "/proposal-gallery/IMG_8699.JPG",
@@ -194,19 +196,19 @@ export default function AnaMadeItEventsPage() {
               rel="noreferrer"
               className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]"
             >
-              Instagram
+              📷 Instagram
             </a>
             <a
               href="tel:6167062828"
               className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]"
             >
-              616-706-2828
+              📞 616-706-2828
             </a>
             <a
-              href="mailto:anabelle1030@gmail.com"
+              href="mailto:✉️ anabelle1030@gmail.com"
               className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]"
             >
-              anabelle1030@gmail.com
+              ✉️ anabelle1030@gmail.com
             </a>
           </div>
 
@@ -278,7 +280,7 @@ export default function AnaMadeItEventsPage() {
               transition={{ duration: 0.9, ease: "easeOut" }}
               className="relative"
             >
-              <Slideshow images={weddingImages} altPrefix="Wedding feature" />
+              <Slideshow images={heroImages} altPrefix="Featured celebration" />
             </motion.div>
           </div>
         </section>
@@ -441,7 +443,7 @@ export default function AnaMadeItEventsPage() {
                 className="rounded-[1.5rem] border border-white/20 bg-white/10 p-6 transition hover:bg-white/15"
               >
                 <p className="text-2xl">📷</p>
-                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-white/75">Instagram</p>
+                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-white/75">📷 Instagram</p>
                 <p className="mt-2 text-lg">@anamadeitevents</p>
               </a>
 
@@ -451,16 +453,16 @@ export default function AnaMadeItEventsPage() {
               >
                 <p className="text-2xl">📞</p>
                 <p className="mt-4 text-xs uppercase tracking-[0.3em] text-white/75">Phone</p>
-                <p className="mt-2 text-lg">616-706-2828</p>
+                <p className="mt-2 text-lg">📞 616-706-2828</p>
               </a>
 
               <a
-                href="mailto:anabelle1030@gmail.com"
+                href="mailto:✉️ anabelle1030@gmail.com"
                 className="rounded-[1.5rem] border border-white/20 bg-white/10 p-6 transition hover:bg-white/15"
               >
                 <p className="text-2xl">✉️</p>
                 <p className="mt-4 text-xs uppercase tracking-[0.3em] text-white/75">Email</p>
-                <p className="mt-2 text-lg break-all">anabelle1030@gmail.com</p>
+                <p className="mt-2 text-lg break-all">✉️ anabelle1030@gmail.com</p>
               </a>
             </div>
           </div>
