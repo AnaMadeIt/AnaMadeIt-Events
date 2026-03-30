@@ -44,27 +44,22 @@ const sections = [
   { id: "weddings", label: "Weddings" },
   { id: "birthdays", label: "Birthdays" },
   { id: "contact", label: "Contact" },
+  { id: "aboutme", label: "About Me" },
 ];
 
-function Slideshow({
-  images,
-  altPrefix,
-}: {
-  images: string[];
-  altPrefix: string;
-}) {
+function Slideshow({ images, altPrefix }: { images: string[]; altPrefix: string }) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     if (!images.length) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 3200);
+    }, 3400);
     return () => clearInterval(timer);
   }, [images.length]);
 
   return (
-    <div className="relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-stone-100 shadow-2xl md:h-[560px]">
+    <div className="relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-[#f6ede9] shadow-[0_24px_60px_rgba(143,95,118,0.18)] md:h-[560px]">
       <AnimatePresence mode="wait">
         <motion.img
           key={images[index]}
@@ -78,16 +73,16 @@ function Slideshow({
         />
       </AnimatePresence>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#50333f]/15 via-transparent to-white/10" />
 
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/70 px-3 py-2 backdrop-blur">
+      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/75 px-3 py-2 backdrop-blur">
         {images.map((_, dotIndex) => (
           <button
             key={dotIndex}
             onClick={() => setIndex(dotIndex)}
             aria-label={`Go to ${altPrefix} image ${dotIndex + 1}`}
-            className={`h-2.5 w-2.5 rounded-full transition-all ${
-              dotIndex === index ? "w-6 bg-stone-900" : "bg-stone-400"
+            className={`h-2.5 rounded-full transition-all ${
+              dotIndex === index ? "w-6 bg-[#b8748f]" : "w-2.5 bg-[#d7b8c5]"
             }`}
           />
         ))}
@@ -96,61 +91,47 @@ function Slideshow({
   );
 }
 
-function SectionHeader({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow: string;
-  title: string;
-  description: string;
-}) {
+function SectionHeader({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
   return (
     <div className="mx-auto mb-10 max-w-3xl text-center md:mb-14">
-      <p className="mb-3 text-xs uppercase tracking-[0.4em] text-stone-500">
-        {eyebrow}
-      </p>
-      <h2
-        className={`${serifFont.className} mb-4 text-4xl tracking-wide text-stone-900 md:text-5xl`}
-      >
+      <p className="mb-3 text-xs uppercase tracking-[0.4em] text-[#b8748f]">{eyebrow}</p>
+      <h2 className={`${serifFont.className} mb-4 text-4xl tracking-wide text-[#4a2f3b] md:text-5xl`}>
         {title}
       </h2>
-      <p className="text-base leading-7 text-stone-600 md:text-lg">
-        {description}
-      </p>
+      <p className="text-base leading-7 text-[#7a5d68] md:text-lg">{description}</p>
     </div>
   );
 }
 
 function ScrollMagic({ activeSection }: { activeSection: string }) {
-  const sectionMap: Record<string, { icon: string; label: string }> = {
-    weddings: { icon: "👰", label: "Bridal magic" },
-    proposals: { icon: "💍", label: "Proposal magic" },
-    birthdays: { icon: "🎂", label: "Birthday magic" },
-    home: { icon: "✨", label: "Celebration magic" },
-    about: { icon: "✨", label: "Celebration magic" },
-    contact: { icon: "💌", label: "Contact magic" },
+  const sectionMap: Record<string, string> = {
+    weddings: "👰",
+    proposals: "💍",
+    birthdays: "🎂",
+    home: "✨",
+    about: "🌸",
+    contact: "💌",
+    aboutme: "🌷",
   };
 
-  const current = sectionMap[activeSection] ?? sectionMap.home;
+  const current = sectionMap[activeSection] ?? "✨";
 
   return (
-    <div className="pointer-events-none fixed right-4 top-24 z-40 hidden md:block lg:right-8">
+    <div className="pointer-events-none fixed right-4 top-28 z-40 hidden md:block lg:right-8">
       <AnimatePresence mode="wait">
         <motion.div
           key={activeSection}
-          initial={{ opacity: 0, y: 30, scale: 0.8, rotate: -8 }}
-          animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-          exit={{ opacity: 0, y: -20, scale: 0.8, rotate: 8 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="flex h-28 w-28 items-center justify-center rounded-full border border-white/50 bg-white/60 text-5xl shadow-2xl backdrop-blur-xl"
-          aria-label={current.label}
+          initial={{ opacity: 0, y: 24, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -18, scale: 0.8 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex h-20 w-20 items-center justify-center rounded-full border border-white/60 bg-white/70 text-4xl shadow-2xl backdrop-blur-xl"
         >
           <motion.span
-            animate={{ y: [0, -6, 0], rotate: [0, 4, -4, 0] }}
-            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ y: [0, -5, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            {current.icon}
+            {current}
           </motion.span>
         </motion.div>
       </AnimatePresence>
@@ -191,7 +172,7 @@ export default function AnaMadeItEventsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f5f1] text-stone-900">
+    <div className="min-h-screen bg-[#fcf6f5] text-[#4a2f3b]">
       <ScrollMagic activeSection={activeSection} />
 
       <style>{`
@@ -199,18 +180,18 @@ export default function AnaMadeItEventsPage() {
           scroll-behavior: smooth;
         }
 
-        .floral-title {
-          text-shadow: 0 2px 14px rgba(80, 67, 52, 0.08);
+        section[id] {
+          scroll-margin-top: 170px;
         }
       `}</style>
 
-      <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-[#f8f5f1]/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-5 px-6 py-6 lg:px-10">
+      <header className="sticky top-0 z-50 border-b border-[#ebd8e0] bg-[#fcf6f5]/88 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-5 px-6 py-5 lg:px-10">
           <div className="text-center">
             <img
               src="/proposal-gallery/logo.png"
               alt="AnaMadeIt Events Logo"
-              className="mx-auto w-[320px] md:w-[420px] lg:w-[520px]"
+              className="mx-auto h-auto max-h-[180px] w-auto max-w-[340px] object-contain md:max-h-[210px] md:max-w-[430px] lg:max-h-[240px] lg:max-w-[520px]"
             />
           </div>
 
@@ -221,10 +202,10 @@ export default function AnaMadeItEventsPage() {
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className={`rounded-full border px-5 py-2.5 text-sm tracking-[0.18em] uppercase transition-all ${
+                  className={`rounded-full border px-4 py-2.5 text-xs tracking-[0.22em] uppercase transition-all md:px-5 md:text-sm ${
                     active
-                      ? "border-stone-900 bg-stone-900 text-white shadow-lg"
-                      : "border-stone-300 bg-white/80 text-stone-700 hover:border-stone-500 hover:bg-white"
+                      ? "border-[#b8748f] bg-[#b8748f] text-white shadow-lg"
+                      : "border-[#dec2cd] bg-white/90 text-[#7a5d68] hover:border-[#b8748f] hover:bg-white"
                   }`}
                 >
                   {section.label}
@@ -235,39 +216,31 @@ export default function AnaMadeItEventsPage() {
         </div>
       </header>
 
-      <main>
-        <section
-          id="home"
-          className="relative overflow-hidden px-6 pb-20 pt-16 lg:px-10 lg:pt-24"
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(120,113,108,0.10),_transparent_42%)]" />
-          <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+      <main className="overflow-x-hidden">
+        <section id="home" className="relative px-6 pb-20 pt-10 lg:px-10 lg:pt-12">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(226,186,204,0.22),_transparent_48%)]" />
+          <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
             <div className="text-center lg:text-left">
-              <p className="mb-4 text-xs uppercase tracking-[0.45em] text-stone-500">
-                AnaMadeIt Events
-              </p>
-              <h2
-                className={`${serifFont.className} text-5xl leading-tight text-stone-900 md:text-7xl`}
-              >
-                Refined celebrations with a romantic, elevated feel.
-              </h2>
-              <p className="mt-6 max-w-2xl text-base leading-8 text-stone-600 md:text-lg">
-                From unforgettable proposals to beautifully curated weddings and
-                birthdays, AnaMadeIt Events creates warm, intentional
-                celebrations that feel timeless, personal, and effortlessly
-                elegant.
+              <p className="mb-4 text-xs uppercase tracking-[0.45em] text-[#b8748f]">AnaMadeIt Events</p>
+              <h1 className={`${serifFont.className} text-5xl leading-tight text-[#4a2f3b] md:text-7xl`}>
+                Luxury celebrations with a romantic, elevated feel.
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-[#7a5d68] md:text-lg">
+                From unforgettable proposals to beautifully curated weddings and birthdays,
+                AnaMadeIt Events creates warm, intentional celebrations that feel timeless,
+                personal, and effortlessly elegant.
               </p>
 
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
                 <button
                   onClick={() => scrollToSection("proposals")}
-                  className="rounded-full bg-stone-900 px-7 py-3 text-sm uppercase tracking-[0.22em] text-white transition hover:translate-y-[-1px]"
+                  className="rounded-full bg-[#b8748f] px-7 py-3 text-sm uppercase tracking-[0.22em] text-white transition hover:translate-y-[-1px] hover:bg-[#a9627f]"
                 >
                   View Proposals
                 </button>
                 <button
                   onClick={() => scrollToSection("weddings")}
-                  className="rounded-full border border-stone-400 px-7 py-3 text-sm uppercase tracking-[0.22em] text-stone-800 transition hover:border-stone-800"
+                  className="rounded-full border border-[#cfa8b8] bg-white px-7 py-3 text-sm uppercase tracking-[0.22em] text-[#7a5d68] transition hover:border-[#b8748f]"
                 >
                   View Weddings
                 </button>
@@ -283,19 +256,10 @@ export default function AnaMadeItEventsPage() {
               <Slideshow images={weddingImages} altPrefix="Wedding feature" />
             </motion.div>
           </div>
-
-          <div className="mt-14 flex justify-center">
-            <button
-              onClick={() => scrollToSection("about")}
-              className="flex items-center gap-2 text-sm uppercase tracking-[0.25em] text-stone-500 transition hover:text-stone-900"
-            >
-              Scroll ↓
-            </button>
-          </div>
         </section>
 
         <section id="about" className="px-6 py-20 lg:px-10">
-          <div className="mx-auto max-w-6xl rounded-[2rem] border border-stone-200 bg-white/80 p-8 shadow-xl backdrop-blur md:p-14">
+          <div className="mx-auto max-w-6xl rounded-[2rem] border border-[#ebd8e0] bg-white/85 p-8 shadow-[0_24px_60px_rgba(143,95,118,0.12)] backdrop-blur md:p-14">
             <SectionHeader
               eyebrow="About"
               title="A polished, personal planning experience"
@@ -323,23 +287,17 @@ export default function AnaMadeItEventsPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{ duration: 0.6 }}
-                  className="rounded-[1.75rem] border border-stone-200 bg-[#faf8f4] p-7 shadow-sm"
+                  className="rounded-[1.75rem] border border-[#eddde3] bg-[#fff8fb] p-7 shadow-sm"
                 >
-                  <h3
-                    className={`${serifFont.className} text-2xl text-stone-900`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 text-sm leading-7 text-stone-600 md:text-base">
-                    {item.text}
-                  </p>
+                  <h3 className={`${serifFont.className} text-2xl text-[#4a2f3b]`}>{item.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#7a5d68] md:text-base">{item.text}</p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="proposals" className="px-6 py-20 lg:px-10">
+        <section id="proposals" className="bg-[#fff8fb] px-6 py-20 lg:px-10">
           <div className="mx-auto max-w-7xl">
             <SectionHeader
               eyebrow="Signature Services"
@@ -353,15 +311,11 @@ export default function AnaMadeItEventsPage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
               >
-                <h3
-                  className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}
-                >
+                <h3 className={`${serifFont.className} text-3xl text-[#4a2f3b] md:text-4xl`}>
                   Thoughtfully styled proposal moments
                 </h3>
-                <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
-                  These images are loading directly from the
-                  <span className="font-semibold"> public/proposal-gallery </span>
-                  folder.
+                <p className="mt-5 text-base leading-8 text-[#7a5d68] md:text-lg">
+                  Romantic setups, beautiful details, and photography-ready styling for unforgettable yes moments.
                 </p>
               </motion.div>
               <motion.div
@@ -376,7 +330,7 @@ export default function AnaMadeItEventsPage() {
           </div>
         </section>
 
-        <section id="weddings" className="bg-white/60 px-6 py-20 lg:px-10">
+        <section id="weddings" className="px-6 py-20 lg:px-10">
           <div className="mx-auto max-w-7xl">
             <SectionHeader
               eyebrow="Featured Gallery"
@@ -398,21 +352,18 @@ export default function AnaMadeItEventsPage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
               >
-                <h3
-                  className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}
-                >
+                <h3 className={`${serifFont.className} text-3xl text-[#4a2f3b] md:text-4xl`}>
                   Romantic wedding imagery with an editorial feel
                 </h3>
-                <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
-                  This wedding slideshow uses your three wedding images from the
-                  same gallery folder.
+                <p className="mt-5 text-base leading-8 text-[#7a5d68] md:text-lg">
+                  Elegant wedding moments presented with the same polished, luxury styling as the rest of the site.
                 </p>
               </motion.div>
             </div>
           </div>
         </section>
 
-        <section id="birthdays" className="px-6 py-20 lg:px-10">
+        <section id="birthdays" className="bg-[#fff8fb] px-6 py-20 lg:px-10">
           <div className="mx-auto max-w-7xl">
             <SectionHeader
               eyebrow="Celebrations"
@@ -426,15 +377,11 @@ export default function AnaMadeItEventsPage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.7 }}
               >
-                <h3
-                  className={`${serifFont.className} text-3xl text-stone-900 md:text-4xl`}
-                >
-                  Beautiful birthday celebrations, styled with the same luxury feel
+                <h3 className={`${serifFont.className} text-3xl text-[#4a2f3b] md:text-4xl`}>
+                  Beautiful birthday celebrations with the same luxury feel
                 </h3>
-                <p className="mt-5 text-base leading-8 text-stone-600 md:text-lg">
-                  Right now this section uses sample gallery images so the design
-                  is complete. You can replace them later with actual birthday
-                  photos by updating the birthdayImages array.
+                <p className="mt-5 text-base leading-8 text-[#7a5d68] md:text-lg">
+                  This section is ready for future birthday galleries while keeping the same design language throughout the site.
                 </p>
               </motion.div>
               <motion.div
@@ -450,17 +397,14 @@ export default function AnaMadeItEventsPage() {
         </section>
 
         <section id="contact" className="px-6 py-20 lg:px-10">
-          <div className="mx-auto max-w-5xl rounded-[2rem] bg-stone-900 px-8 py-12 text-white shadow-2xl md:px-14 md:py-16">
+          <div className="mx-auto max-w-5xl rounded-[2rem] bg-gradient-to-br from-[#b8748f] to-[#8d5b72] px-8 py-12 text-white shadow-[0_24px_60px_rgba(143,95,118,0.24)] md:px-14 md:py-16">
             <div className="text-center">
-              <p className="text-xs uppercase tracking-[0.4em] text-stone-300">
-                Contact
-              </p>
+              <p className="text-xs uppercase tracking-[0.4em] text-white/80">Contact</p>
               <h2 className={`${serifFont.className} mt-4 text-4xl md:text-5xl`}>
                 Let’s create something unforgettable
               </h2>
-              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-stone-300 md:text-lg">
-                Reach out directly for proposal planning, wedding coordination,
-                floral styling, and curated event design.
+              <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/90 md:text-lg">
+                Reach out directly for proposal planning, wedding coordination, floral styling, and curated event design.
               </p>
             </div>
 
@@ -469,59 +413,40 @@ export default function AnaMadeItEventsPage() {
                 href="https://www.instagram.com/anamadeitevents/"
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
+                className="rounded-[1.5rem] border border-white/20 bg-white/10 p-6 transition hover:bg-white/15"
               >
                 <p className="text-2xl">📷</p>
-                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">
-                  Instagram
-                </p>
+                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-white/75">Instagram</p>
                 <p className="mt-2 text-lg">@anamadeitevents</p>
               </a>
 
               <a
                 href="tel:6167062828"
-                className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
+                className="rounded-[1.5rem] border border-white/20 bg-white/10 p-6 transition hover:bg-white/15"
               >
                 <p className="text-2xl">📞</p>
-                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">
-                  Phone
-                </p>
+                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-white/75">Phone</p>
                 <p className="mt-2 text-lg">616-706-2828</p>
               </a>
 
               <a
                 href="mailto:anabelle1030@gmail.com"
-                className="rounded-[1.5rem] border border-white/15 bg-white/5 p-6 transition hover:bg-white/10"
+                className="rounded-[1.5rem] border border-white/20 bg-white/10 p-6 transition hover:bg-white/15"
               >
                 <p className="text-2xl">✉️</p>
-                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-stone-300">
-                  Email
-                </p>
-                <p className="mt-2 text-lg break-all">
-                  anabelle1030@gmail.com
-                </p>
+                <p className="mt-4 text-xs uppercase tracking-[0.3em] text-white/75">Email</p>
+                <p className="mt-2 text-lg break-all">anabelle1030@gmail.com</p>
               </a>
             </div>
           </div>
         </section>
 
-        <section
-          id="aboutme"
-          className="relative overflow-hidden bg-[#fdfaf6] px-6 py-24 lg:px-10"
-        >
+        <section id="aboutme" className="relative overflow-hidden bg-[#fff8fb] px-6 py-24 lg:px-10">
           <div className="pointer-events-none absolute inset-0 opacity-60">
-            <div className="absolute left-[-40px] top-16 text-7xl md:text-8xl">
-              🌸
-            </div>
-            <div className="absolute right-8 top-24 text-5xl md:text-6xl">
-              🌿
-            </div>
-            <div className="absolute bottom-20 left-10 text-6xl md:text-7xl">
-              🌷
-            </div>
-            <div className="absolute bottom-10 right-[-10px] text-7xl md:text-8xl">
-              🌸
-            </div>
+            <div className="absolute left-[-40px] top-16 text-7xl md:text-8xl">🌸</div>
+            <div className="absolute right-8 top-24 text-5xl md:text-6xl">🌿</div>
+            <div className="absolute bottom-20 left-10 text-6xl md:text-7xl">🌷</div>
+            <div className="absolute bottom-10 right-[-10px] text-7xl md:text-8xl">🌸</div>
           </div>
 
           <motion.div
@@ -532,40 +457,28 @@ export default function AnaMadeItEventsPage() {
             className="relative mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]"
           >
             <div className="relative mx-auto w-full max-w-[360px]">
-              <div className="absolute -left-5 -top-5 h-full w-full rounded-[2rem] bg-white/70 shadow-2xl" />
-              <div className="relative rotate-[-3deg] rounded-[2rem] bg-white p-5 shadow-[0_24px_60px_rgba(0,0,0,0.14)]">
-                <div className="rounded-[1.5rem] bg-[#f7f1ea] p-3">
+              <div className="absolute -left-5 -top-5 h-full w-full rounded-[2rem] bg-white/80 shadow-2xl" />
+              <div className="relative rotate-[-3deg] rounded-[2rem] bg-white p-5 shadow-[0_24px_60px_rgba(143,95,118,0.14)]">
+                <div className="rounded-[1.5rem] bg-[#fdf1f5] p-3">
                   <img
                     src="/proposal-gallery/aboutme.jpg"
                     alt="Ana Breen"
                     className="h-auto w-full rounded-[1.25rem] object-cover shadow-lg"
                   />
                 </div>
-                <p
-                  className={`${scriptFont.className} mt-4 text-center text-3xl text-stone-700 md:text-4xl`}
-                >
+                <p className={`${scriptFont.className} mt-4 text-center text-3xl text-[#8d5b72] md:text-4xl`}>
                   Ana Breen
                 </p>
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-stone-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur md:p-12 lg:text-left">
-              <p className="mb-3 text-xs uppercase tracking-[0.4em] text-stone-500">
-                About Me
-              </p>
-              <h2
-                className={`${serifFont.className} mb-6 text-4xl text-stone-900 md:text-5xl`}
-              >
+            <div className="rounded-[2rem] border border-[#ebd8e0] bg-white/85 p-8 text-center shadow-[0_24px_60px_rgba(143,95,118,0.12)] backdrop-blur md:p-12 lg:text-left">
+              <p className="mb-3 text-xs uppercase tracking-[0.4em] text-[#b8748f]">About Me</p>
+              <h2 className={`${serifFont.className} mb-6 text-4xl text-[#4a2f3b] md:text-5xl`}>
                 Creating beautiful memories that last a lifetime
               </h2>
-              <p className="text-lg leading-8 text-stone-600">
-                My name is Ana Breen, and I have been doing events for over 20
-                years. If there is one thing I know, it is that everybody wants
-                to create special memories for the moments that matter most. My
-                mission is to make sure that you can come to me with any idea
-                from A to Z, and I will take it from there! Everybody deserves
-                to have the event of their dreams, and to create memories that
-                last a lifetime. Because today existed!
+              <p className="text-lg leading-8 text-[#7a5d68]">
+                My name is Ana Breen, and I have been doing events for over 20 years. If there is one thing I know, it is that everybody wants to create special memories for the moments that matter most. My mission is to make sure that you can come to me with any idea from A to Z, and I will take it from there! Everybody deserves to have the event of their dreams, and to create memories that last a lifetime. Because today existed!
               </p>
             </div>
           </motion.div>
