@@ -185,10 +185,22 @@ export default function AnaMadeItEventsPage() {
         }
       `}</style>
 
-      <header className="sticky top-0 z-50 border-b border-[#ebd8e0] bg-[#fcf6f5]/88 backdrop-blur-xl">
+      <header className="border-b border-[#ebd8e0] bg-[#fcf6f5]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-5 px-6 py-5 lg:px-10">
-          <div className="text-center">
-            <img
+          <div className="w-full">
+            <div className="mb-4 flex flex-wrap items-center justify-center gap-3 text-sm text-[#8d5b72] lg:justify-end">
+              <a href="https://www.instagram.com/anamadeitevents/" target="_blank" rel="noreferrer" className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]">
+                Instagram
+              </a>
+              <a href="tel:6167062828" className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]">
+                616-706-2828
+              </a>
+              <a href="mailto:anabelle1030@gmail.com" className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]">
+                anabelle1030@gmail.com
+              </a>
+            </div>
+            <div className="text-center">
+              <img
               src="/proposal-gallery/logo.png"
               alt="AnaMadeIt Events Logo"
               className="mx-auto h-auto max-h-[180px] w-auto max-w-[340px] object-contain md:max-h-[210px] md:max-w-[430px] lg:max-h-[240px] lg:max-w-[520px]"
