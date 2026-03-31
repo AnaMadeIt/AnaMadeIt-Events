@@ -196,26 +196,29 @@ export default function AnaMadeItEventsPage() {
 
       <header className="border-b border-[#ebd8e0] bg-[#fcf6f5]">
         <div className="mx-auto max-w-7xl px-6 py-5 lg:px-10">
-          <div className="mb-4 flex flex-wrap items-center justify-center gap-3 text-sm text-[#8d5b72] lg:justify-end">
+          <div className="mb-4 flex flex-wrap items-center justify-center gap-3 text-sm text-[#8d5b72]">
             <a
               href="https://www.instagram.com/anamadeitevents/"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]"
+              aria-label="Instagram"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dec2cd] bg-white/90 text-xl transition hover:border-[#b8748f] hover:text-[#b8748f]"
             >
-              📷 Instagram
+              📷
             </a>
             <a
               href="tel:6167062828"
-              className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]"
+              aria-label="Phone"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dec2cd] bg-white/90 text-xl transition hover:border-[#b8748f] hover:text-[#b8748f]"
             >
-              📞 616-706-2828
+              📞
             </a>
             <a
-              href="mailto:✉️ anabelle1030@gmail.com"
-              className="rounded-full border border-[#dec2cd] bg-white/90 px-4 py-2 transition hover:border-[#b8748f] hover:text-[#b8748f]"
+              href="mailto:anabelle1030@gmail.com"
+              aria-label="Email"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dec2cd] bg-white/90 text-xl transition hover:border-[#b8748f] hover:text-[#b8748f]"
             >
-              ✉️ anabelle1030@gmail.com
+              ✉️
             </a>
           </div>
 
