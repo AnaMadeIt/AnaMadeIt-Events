@@ -58,43 +58,71 @@ const sections = [
 
 function Slideshow({ images, altPrefix }: { images: string[]; altPrefix: string }) {
   const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (!images.length) return;
+    if (!images.length || isPaused) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 3400);
+    }, 4200);
     return () => clearInterval(timer);
-  }, [images.length]);
+  }, [images.length, isPaused]);
 
   return (
-    <div className="relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-[#f6ede9] shadow-[0_24px_60px_rgba(143,95,118,0.18)] md:h-[560px]">
+    <div
+      className="group relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-[#f6ede9] shadow-[0_24px_60px_rgba(143,95,118,0.18)] md:h-[560px]"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <AnimatePresence mode="wait">
         <motion.img
           key={images[index]}
           src={images[index]}
           alt={`${altPrefix} ${index + 1}`}
           className="absolute inset-0 h-full w-full object-cover"
-          initial={{ opacity: 0, scale: 1.03 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.985 }}
-          transition={{ duration: 0.9, ease: "easeInOut" }}
+          initial={{ opacity: 0, scale: 1.045, filter: "blur(6px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          exit={{ opacity: 0, scale: 0.985, filter: "blur(4px)" }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         />
       </AnimatePresence>
 
       <div className="absolute inset-0 bg-gradient-to-t from-[#50333f]/15 via-transparent to-white/10" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/10 to-transparent opacity-70" />
 
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/75 px-3 py-2 backdrop-blur">
-        {images.map((_, dotIndex) => (
-          <button
-            key={dotIndex}
-            onClick={() => setIndex(dotIndex)}
-            aria-label={`Go to ${altPrefix} image ${dotIndex + 1}`}
-            className={`h-2.5 rounded-full transition-all ${
-              dotIndex === index ? "w-6 bg-[#b8748f]" : "w-2.5 bg-[#d7b8c5]"
-            }`}
-          />
-        ))}
+      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full bg-white/78 px-4 py-2.5 backdrop-blur-md shadow-lg">
+        <button
+          onClick={() => setIndex((prev) => (prev - 1 + images.length) % images.length)}
+          aria-label={`Previous ${altPrefix} image`}
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#8d5b72] transition hover:bg-[#f8e8ef]"
+        >
+          ‹
+        </button>
+
+        <div className="flex gap-2">
+          {images.map((_, dotIndex) => (
+            <button
+              key={dotIndex}
+              onClick={() => setIndex(dotIndex)}
+              aria-label={`Go to ${altPrefix} image ${dotIndex + 1}`}
+              className={`h-2.5 rounded-full transition-all duration-500 ${
+                dotIndex === index ? "w-7 bg-[#b8748f]" : "w-2.5 bg-[#d7b8c5] hover:bg-[#c996ab]"
+              }`}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={() => setIndex((prev) => (prev + 1) % images.length)}
+          aria-label={`Next ${altPrefix} image`}
+          className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#8d5b72] transition hover:bg-[#f8e8ef]"
+        >
+          ›
+        </button>
+      </div>
+
+      <div className="absolute right-5 top-5 rounded-full bg-white/70 px-3 py-1 text-xs uppercase tracking-[0.25em] text-[#8d5b72] backdrop-blur-md opacity-0 transition duration-500 group-hover:opacity-100">
+        Auto slideshow
       </div>
     </div>
   );
