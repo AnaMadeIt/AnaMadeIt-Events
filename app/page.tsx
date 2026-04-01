@@ -15,14 +15,14 @@ const serifFont = Cormorant_Garamond({
 });
 
 const proposalImages = [
-  "/proposal-gallery/IMG_8695.JPG",
-  "/proposal-gallery/IMG_8696.JPG",
-  "/proposal-gallery/IMG_8697.JPG",
-  "/proposal-gallery/IMG_8698.JPG",
-  "/proposal-gallery/IMG_8699.JPG",
-  "/proposal-gallery/IMG_8700.JPG",
-  "/proposal-gallery/IMG_8701.JPG",
-  "/proposal-gallery/IMG_8702.JPG",
+  "/proposal-gallery/IMG_8695.jpg",
+  "/proposal-gallery/IMG_8696.jpg",
+  "/proposal-gallery/IMG_8697.jpg",
+  "/proposal-gallery/IMG_8698.jpg",
+  "/proposal-gallery/IMG_8699.jpg",
+  "/proposal-gallery/IMG_8700.jpg",
+  "/proposal-gallery/IMG_8701.jpg",
+  "/proposal-gallery/IMG_8702.jpg",
   "/proposal-gallery/26919FD1-1889-433A-8C1D-77DF5A2DA8B5.JPG",
   "/proposal-gallery/IMG_1559.jpg",
   "/proposal-gallery/IMG_0473.jpg",
@@ -31,9 +31,9 @@ const proposalImages = [
 ];
 
 const weddingImages = [
-  "/proposal-gallery/IMG_9372.JPG",
-  "/proposal-gallery/IMG_9373.JPG",
-  "/proposal-gallery/IMG_9374.JPG",
+  "/proposal-gallery/IMG_9372.jpg",
+  "/proposal-gallery/IMG_9373.jpg",
+  "/proposal-gallery/IMG_9374.jpg",
 ];
 
 const heroImages = [...proposalImages, ...weddingImages];
@@ -58,32 +58,27 @@ const sections = [
 
 function Slideshow({ images, altPrefix }: { images: string[]; altPrefix: string }) {
   const [index, setIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (!images.length || isPaused) return;
+    if (!images.length) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 4200);
+    }, 4600);
     return () => clearInterval(timer);
-  }, [images.length, isPaused]);
+  }, [images.length]);
 
   return (
-    <div
-      className="group relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-[#f6ede9] shadow-[0_24px_60px_rgba(143,95,118,0.18)] md:h-[560px]"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
+    <div className="group relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-[#f6ede9] shadow-[0_24px_60px_rgba(143,95,118,0.18)] md:h-[560px]">
       <AnimatePresence mode="wait">
         <motion.img
           key={images[index]}
           src={images[index]}
           alt={`${altPrefix} ${index + 1}`}
           className="absolute inset-0 h-full w-full object-cover"
-          initial={{ opacity: 0, scale: 1.045, filter: "blur(6px)" }}
+          initial={{ opacity: 0, scale: 1.04, filter: "blur(4px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          exit={{ opacity: 0, scale: 0.985, filter: "blur(4px)" }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0, scale: 0.99, filter: "blur(3px)" }}
+          transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
         />
       </AnimatePresence>
 
