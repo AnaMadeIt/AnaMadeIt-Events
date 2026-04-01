@@ -23,7 +23,6 @@ const proposalImages = [
   "/proposal-gallery/IMG_8700.jpg",
   "/proposal-gallery/IMG_8701.jpg",
   "/proposal-gallery/IMG_8702.jpg",
-  "/proposal-gallery/26919FD1-1889-433A-8C1D-77DF5A2DA8B5.JPG",
   "/proposal-gallery/IMG_1559.jpg",
   "/proposal-gallery/IMG_0473.jpg",
   "/proposal-gallery/IMG_8310.jpg",
@@ -43,7 +42,6 @@ const corporateImages = [
   "/proposal-gallery/IMG_0473.jpg",
   "/proposal-gallery/IMG_8310.jpg",
   "/proposal-gallery/IMG_1381.jpg",
-  "/proposal-gallery/26919FD1-1889-433A-8C1D-77DF5A2DA8B5.JPG",
 ];
 
 const sections = [
@@ -286,7 +284,7 @@ export default function AnaMadeItEventsPage() {
                 Luxury celebrations with a romantic, elevated feel.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-8 text-[#7a5d68] md:text-lg">
-                From unforgettable proposals to beautifully curated weddings and birthdays,
+                From unforgettable proposals to beautifully curated weddings and corporate events,
                 AnaMadeIt Events creates warm, intentional celebrations that feel timeless,
                 personal, and effortlessly elegant.
               </p>
@@ -338,7 +336,7 @@ export default function AnaMadeItEventsPage() {
                 },
                 {
                   title: "Meaningful Moments",
-                  text: "Every proposal, wedding, and birthday is tailored so the final experience feels deeply personal.",
+                  text: "Every proposal, wedding, and corporate event is tailored so the final experience feels deeply personal.",
                 },
               ].map((item) => (
                 <motion.div
@@ -490,7 +488,7 @@ export default function AnaMadeItEventsPage() {
               </a>
 
               <a
-                href="mailto:✉️ anabelle1030@gmail.com"
+                href="mailto:anabelle1030@gmail.com"
                 className="rounded-[1.5rem] border border-white/20 bg-white/10 p-6 transition hover:bg-white/15"
               >
                 <p className="text-2xl">✉️</p>
