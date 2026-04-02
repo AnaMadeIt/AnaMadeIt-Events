@@ -457,6 +457,144 @@ export default function AnaMadeItEventsPage() {
           </div>
         </section>
 
+        <section id="reuse" className="relative overflow-hidden bg-[#fff8fb] px-6 py-24 lg:px-10">
+          <div className="pointer-events-none absolute inset-0 opacity-60">
+            <div className="absolute left-[-30px] top-14 text-7xl md:text-8xl">🌸</div>
+            <div className="absolute right-6 top-20 text-5xl md:text-6xl">🌿</div>
+            <div className="absolute bottom-16 left-12 text-6xl md:text-7xl">♻️</div>
+            <div className="absolute bottom-8 right-[-10px] text-7xl md:text-8xl">🌷</div>
+          </div>
+
+          <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative rounded-[2rem] border border-[#ebd8e0] bg-white/88 p-8 shadow-[0_24px_60px_rgba(143,95,118,0.12)] backdrop-blur md:p-12"
+            >
+              <div className="absolute -top-4 left-8 rounded-full bg-[#fbe4ee] px-4 py-2 text-xs uppercase tracking-[0.32em] text-[#b8748f] shadow-sm">
+                Reduce • Reuse • Reward
+              </div>
+
+              <p className="mb-4 mt-6 text-xs uppercase tracking-[0.4em] text-[#b8748f]">Sustainable Florals</p>
+              <h2 className={`${serifFont.className} mb-6 text-4xl text-[#4a2f3b] md:text-5xl`}>
+                Reduce, Reuse, and Reward!
+              </h2>
+              <p className="mb-8 max-w-2xl text-base leading-8 text-[#7a5d68] md:text-lg">
+                Beautiful blooms do not have to mean more waste. Ana Made It Events rewards thoughtful choices that give vases and containers a second life while keeping every arrangement elegant, romantic, and memorable.
+              </p>
+
+              <div className="space-y-4">
+                {[
+                  {
+                    icon: "♻️",
+                    title: "Bring your own vase",
+                    text: "Get a discount and let a meaningful container become part of your floral story.",
+                  },
+                  {
+                    icon: "🌸",
+                    title: "Choose a recycled container",
+                    text: "Pay less while selecting from reused jars, mugs, and vessels that still feel beautiful and intentional.",
+                  },
+                  {
+                    icon: "✨",
+                    title: "Choose brand-new",
+                    text: "Still beautiful, still thoughtful, and always designed with care for special gifting and milestone moments.",
+                  },
+                ].map((item) => (
+                  <motion.div
+                    key={item.title}
+                    whileHover={{ y: -4, scale: 1.01 }}
+                    transition={{ duration: 0.2 }}
+                    className="group rounded-[1.5rem] border border-[#eddde3] bg-[#fffafd] p-5 shadow-sm transition hover:border-[#d6a8bc] hover:shadow-[0_18px_40px_rgba(184,116,143,0.14)]"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#fdebf2] text-2xl shadow-sm">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <h3 className={`${serifFont.className} text-2xl text-[#4a2f3b] transition group-hover:text-[#b8748f]`}>
+                          {item.title}
+                        </h3>
+                        <p className="mt-2 text-base leading-7 text-[#7a5d68]">{item.text}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <p className="mt-8 italic text-[#8d5b72]">
+                Because today existed — let it bloom again.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="mx-auto flex w-full max-w-[430px] items-center justify-center"
+            >
+              <motion.div
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+                className="relative"
+              >
+                <div className="relative flex h-[360px] w-[310px] items-end justify-center">
+                  <motion.div
+                    animate={{ rotate: [0, 2, -2, 0] }}
+                    transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-0 h-[175px] w-[178px] rounded-b-[2.5rem] rounded-t-[1.75rem] border-4 border-[#d8b7c5] bg-gradient-to-b from-[#fdf1f5] to-[#f0d9e4] shadow-[0_24px_60px_rgba(184,116,143,0.22)]"
+                  >
+                    <div className="absolute inset-x-0 top-4 text-center text-5xl">♻️</div>
+                    <div className="absolute inset-x-0 bottom-5 text-center text-3xl">😊</div>
+                  </motion.div>
+
+                  <motion.div
+                    animate={{ height: [146, 158, 146] }}
+                    transition={{ duration: 3.1, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-[126px] left-1/2 w-2 -translate-x-1/2 rounded-full bg-[#6e9d5e]"
+                    style={{ height: 152 }}
+                  />
+
+                  <motion.div
+                    animate={{ rotate: [0, 7, -7, 0], scale: [1, 1.03, 1] }}
+                    transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-[232px] left-[86px] text-[98px]"
+                  >
+                    🌸
+                  </motion.div>
+
+                  <motion.div
+                    animate={{ rotate: [0, -6, 6, 0] }}
+                    transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-[200px] left-[50px] text-[42px]"
+                  >
+                    🍃
+                  </motion.div>
+
+                  <motion.div
+                    animate={{ rotate: [0, 6, -6, 0] }}
+                    transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-[200px] right-[50px] text-[42px]"
+                  >
+                    🍃
+                  </motion.div>
+
+                  <motion.div
+                    animate={{ opacity: [0.5, 1, 0.5], y: [0, -6, 0] }}
+                    transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute right-[20px] top-[26px] text-3xl"
+                  >
+                    ✨
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
         <section id="contact" className="px-6 py-20 lg:px-10">
           <div className="mx-auto max-w-5xl rounded-[2rem] bg-gradient-to-br from-[#b8748f] to-[#8d5b72] px-8 py-12 text-white shadow-[0_24px_60px_rgba(143,95,118,0.24)] md:px-14 md:py-16">
             <div className="text-center">
