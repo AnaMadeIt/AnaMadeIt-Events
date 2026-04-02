@@ -61,29 +61,36 @@ function Slideshow({ images, altPrefix }: { images: string[]; altPrefix: string 
     if (!images.length) return;
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % images.length);
-    }, 4600);
+    }, 4200);
     return () => clearInterval(timer);
   }, [images.length]);
 
   return (
-    <div className="group relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-[#f6ede9] shadow-[0_24px_60px_rgba(143,95,118,0.18)] md:h-[560px]">
-      <AnimatePresence mode="wait">
-        <motion.img
-          key={images[index]}
-          src={images[index]}
-          alt={`${altPrefix} ${index + 1}`}
-          className="absolute inset-0 h-full w-full object-cover"
-          initial={{ opacity: 0, scale: 1.04, filter: "blur(4px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          exit={{ opacity: 0, scale: 0.99, filter: "blur(3px)" }}
-          transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </AnimatePresence>
+    <div className="group relative h-[420px] w-full overflow-hidden rounded-[2rem] bg-[#f8f1f0] shadow-[0_24px_60px_rgba(143,95,118,0.18)] md:h-[560px]">
+      {images.map((image, imageIndex) => {
+        const isActive = imageIndex === index;
+        return (
+          <motion.img
+            key={image}
+            src={image}
+            alt={`${altPrefix} ${imageIndex + 1}`}
+            className="absolute inset-0 h-full w-full object-cover"
+            initial={false}
+            animate={{
+              opacity: isActive ? 1 : 0,
+              scale: isActive ? 1.015 : 1,
+            }}
+            transition={{
+              opacity: { duration: 0.95, ease: "easeInOut" },
+              scale: { duration: 4.2, ease: "easeOut" },
+            }}
+          />
+        );
+      })}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-[#50333f]/15 via-transparent to-white/10" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/10 to-transparent opacity-70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#50333f]/12 via-transparent to-white/8" />
 
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full bg-white/78 px-4 py-2.5 backdrop-blur-md shadow-lg">
+      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full bg-white/82 px-4 py-2.5 backdrop-blur-md shadow-lg">
         <button
           onClick={() => setIndex((prev) => (prev - 1 + images.length) % images.length)}
           aria-label={`Previous ${altPrefix} image`}
@@ -112,10 +119,6 @@ function Slideshow({ images, altPrefix }: { images: string[]; altPrefix: string 
         >
           ›
         </button>
-      </div>
-
-      <div className="absolute right-5 top-5 rounded-full bg-white/70 px-3 py-1 text-xs uppercase tracking-[0.25em] text-[#8d5b72] backdrop-blur-md opacity-0 transition duration-500 group-hover:opacity-100">
-        Auto slideshow
       </div>
     </div>
   );
