@@ -15,33 +15,33 @@ const serifFont = Cormorant_Garamond({
 });
 
 const proposalImages = [
-  "/proposal-gallery/IMG_8695.jpg",
-  "/proposal-gallery/IMG_8696.jpg",
-  "/proposal-gallery/IMG_8697.jpg",
-  "/proposal-gallery/IMG_8698.jpg",
-  "/proposal-gallery/IMG_8699.jpg",
-  "/proposal-gallery/IMG_8700.jpg",
-  "/proposal-gallery/IMG_8701.jpg",
-  "/proposal-gallery/IMG_8702.jpg",
-  "/proposal-gallery/IMG_1559.jpg",
-  "/proposal-gallery/IMG_0473.jpg",
-  "/proposal-gallery/IMG_8310.jpg",
-  "/proposal-gallery/IMG_1381.jpg",
+  "/proposal-gallery/IMG_8695.JPG",
+  "/proposal-gallery/IMG_8696.JPG",
+  "/proposal-gallery/IMG_8697.JPG",
+  "/proposal-gallery/IMG_8698.JPG",
+  "/proposal-gallery/IMG_8699.JPG",
+  "/proposal-gallery/IMG_8700.JPG",
+  "/proposal-gallery/IMG_8701.JPG",
+  "/proposal-gallery/IMG_8702.JPG",
+  "/proposal-gallery/IMG_1559.JPG",
+  "/proposal-gallery/IMG_0473.JPG",
+  "/proposal-gallery/IMG_8310.JPG",
+  "/proposal-gallery/IMG_1381.JPG",
 ];
 
 const weddingImages = [
-  "/proposal-gallery/IMG_9372.jpg",
-  "/proposal-gallery/IMG_9373.jpg",
-  "/proposal-gallery/IMG_9374.jpg",
+  "/proposal-gallery/IMG_9372.JPG",
+  "/proposal-gallery/IMG_9373.JPG",
+  "/proposal-gallery/IMG_9374.JPG",
 ];
 
 const heroImages = [...proposalImages, ...weddingImages];
 
 const corporateImages = [
-  "/proposal-gallery/IMG_1559.jpg",
-  "/proposal-gallery/IMG_0473.jpg",
-  "/proposal-gallery/IMG_8310.jpg",
-  "/proposal-gallery/IMG_1381.jpg",
+  "/proposal-gallery/IMG_1559.JPG",
+  "/proposal-gallery/IMG_0473.JPG",
+  "/proposal-gallery/IMG_8310.JPG",
+  "/proposal-gallery/IMG_1381.JPG",
 ];
 
 const sections = [
