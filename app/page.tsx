@@ -50,6 +50,7 @@ const sections = [
   { id: "proposals", label: "Proposals" },
   { id: "weddings", label: "Weddings" },
   { id: "corporate", label: "Corporate" },
+  { id: "reuse", label: "Reuse & Save" },
   { id: "contact", label: "Contact" },
   { id: "aboutme", label: "About Me" },
 ];
