@@ -222,13 +222,15 @@ export default function AnaMadeItEventsPage() {
         <div className="mx-auto max-w-7xl px-6 py-5 lg:px-10">
           <div className="mb-4 flex flex-wrap items-center justify-center gap-3 text-sm text-[#8d5b72]">
             <a
-              href="https://www.instagram.com/anamadeitevents/"
+              href="https://www.instagram.com/anamadeit_events/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="Instagram"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-[#dec2cd] bg-white/90 text-xl transition hover:border-[#b8748f] hover:text-[#b8748f]"
             >
-              📷
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                <path d="M7.75 2C4.574 2 2 4.574 2 7.75v8.5C2 19.426 4.574 22 7.75 22h8.5c3.176 0 5.75-2.574 5.75-5.75v-8.5C22 4.574 19.426 2 16.25 2h-8.5zm0 2h8.5A3.75 3.75 0 0 1 20 7.75v8.5A3.75 3.75 0 0 1 16.25 20h-8.5A3.75 3.75 0 0 1 4 16.25v-8.5A3.75 3.75 0 0 1 7.75 4zm9.25 1.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/>
+              </svg>
             </a>
             <a
               href="tel:6167062828"
@@ -609,14 +611,14 @@ export default function AnaMadeItEventsPage() {
 
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               <a
-                href="https://www.instagram.com/anamadeitevents/"
+                href="https://www.instagram.com/anamadeit_events/"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-[1.5rem] border border-white/20 bg-white/10 p-6 transition hover:bg-white/15"
               >
                 <p className="text-2xl">📷</p>
                 <p className="mt-4 text-xs uppercase tracking-[0.3em] text-white/75">📷 Instagram</p>
-                <p className="mt-2 text-lg">@anamadeitevents</p>
+                <p className="mt-2 text-lg">@anamadeit_events</p>
               </a>
 
               <a
